@@ -5,116 +5,95 @@
 	<title>Opdracht Meetkunde</title>
 	<meta name="description" content="A-Frame tests">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+	<script src="./main.js"></script>
 </head>
 <body>
-	<a-scene background="color: #ECECEC" loading-screen="dotsColor: red; backgroundColor: black">
-		<a-plane
-			position="0 -5 -5"
-			width="5" height="5"
-			src="./textures/wooden_floor.jpg"
-			rotation="-90 0 0"
-		>
-		</a-plane>
-		<a-plane
-			position="5 -5 -5"
-			width="5" height="5"
-			src="./textures/wooden_floor.jpg"
-			rotation="-90 0 0"
-		>
-		</a-plane>
-		<a-plane
+	<a-scene background="color: #ECECEC" loading-screen="dotsColor: red; backgroundColor: black" stats>
+
+		<a-assets>
+			<a-asset-item id="table" src="./objects/table.glb"></a-asset-item>
+			<a-asset-item id="tree" src="./objects/tree.glb"></a-asset-item>
+
+			<a-asset-item id="classroom_floor" src="./objects/classroom_floor.glb"></a-asset-item>
+			<a-asset-item id="classroom_chair" src="./objects/classroom_chair.glb"></a-asset-item>
+			<a-asset-item id="classroom_table" src="./objects/classroom_table.glb"></a-asset-item>
+		</a-assets>
+
+		<a-camera class="js--camera" wasd-controls="acceleration:250">
+			<a-entity
+				animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
+				animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
+				animation="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
+
+				cursor="fuse: true; fuseTimeout: 2000"
+
+				material="color: black; shader: flat"
+
+				geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
+
+				raycaster="objects: [data-interactive]"
+
+				position="0 0 -0.5"
+			></a-entity>
+		</a-camera>
+
+		<a-entity
+			gltf-model="#classroom_floor"
 			position="0 -5 0"
-			width="5" height="5"
-			src="./textures/wooden_floor.jpg"
-			rotation="-90 0 0"
+			scale="0.04 0.04 0.04"
 		>
-		</a-plane>
-		<a-plane
-			position="5 -5 0"
-			width="5" height="5"
-			src="./textures/wooden_floor.jpg"
-			rotation="-90 0 0"
+		</a-entity>
+		<a-entity
+			data-interactive
+			gltf-model="#classroom_chair"
+			position="0 -5 0"
+			scale="0.0175 0.0175 0.0175"
 		>
-		</a-plane>
-		<a-plane
-			position="5 -5 -10"
-			width="5" height="5"
-			src="./textures/wooden_floor.jpg"
-			rotation="-90 0 0"
+		</a-entity>
+		
+
+<!-- SET OF TABLES -->
+		<a-entity
+			data-interactive
+			gltf-model="#classroom_table"
+			position="0 -5 0"
+			scale="0.0175 0.0175 0.0175"
 		>
-		</a-plane>
-		<a-plane
-			position="0 -5 -10"
-			width="5" height="5"
-			src="./textures/wooden_floor.jpg"
-			rotation="-90 0 0"
+		</a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 4 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 8" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 8" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 4 8" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 16" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 16" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 4 16" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 24" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 24" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 4 24" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 32" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 32" scale="0.0175 0.0175 0.0175"></a-entity>
+
+
+<!-- TABLE OF TEACHER -->
+		<a-entity
+			gltf-model="#table"
+			scale="0.0075 0.0075 0.0075"
+			rotation="0 -90 0"
+			position="1 0 -10"
 		>
-		</a-plane>
+		</a-entity>
+		<a-entity
+			gltf-model="#tree"
+			scale="0.03 0.03 0.03"
+			position="-5 -5 -50"
+		>
+		</a-entity>
 
-<!-- Left wall -->
-		<a-box
-			position="-3 0 -5"
-			src="./textures/wall.jpg"
-			depth="15"
-			height="10"
-		></a-box>
-<!-- Right wall -->
-		<a-box
-			position="8 0 -5"
-			src="./textures/wall.jpg"
-			depth="15"
-			height="10"
-		></a-box>
-<!-- Front wall -->
-		<a-box
-			position="2.5 0 -13"
-			src="./textures/wall.jpg"
-			depth="10"
-			height="10"
-			rotation="0 90 0"
-		></a-box>
-<!-- Back wall -->
-		<a-box
-			position="2.5 0 2.5"
-			src="./textures/wall.jpg"
-			depth="10"
-			height="10"
-			rotation="0 90 0"
-		></a-box>
-<!-- LAMP -->
-		<!-- Pole -->
-		<a-cylinder
-			position="2 -3 0"
-			height="5.5"
-			radius="0.1"
-		></a-cylinder>
-		<!-- Cap -->
-		<a-cylinder
-			position="2 0 0"
-			height="3"
-			color="white"
-			radius="1"
-		></a-cylinder>
-		<!-- Stand -->
-		<a-cylinder
-			position="2 -3 0"
-			height="5.5"
-			radius="0.1"
-		></a-cylinder>
-		<!-- Bulb -->
-		<a-entity id="lightSphere" position="2 0 0" geometry="primitive: sphere; radius: 0.25" material="color: #efebd8; shader: flat" light="type: point"></a-entity>
+		<!-- <a-entity id="lightSphere" position="2 0 0" geometry="primitive: sphere; radius: 0.25" material="color: #efebd8; shader: flat" light="type: point"></a-entity> -->
 
-		<!-- <a-plane
-			color="brown"
-			position="-2.4 -1 -4"
-			rotation="0 90 0"
-			width="5"
-			height="7"
-		></a-plane> -->
-
-		<a-light type="ambient" color="#222"></a-light>
-
-		<a-plane src="./textures/window.jfif" position="2.5 1 -12.4" width="5" height="6"></a-plane>
+		<!-- <a-light type="ambient" color="#222" position="0 10 0"></a-light> -->
 
 	</a-scene>
 </body>
