@@ -8,7 +8,7 @@
 	<script src="./main.js"></script>
 </head>
 <body>
-	<a-scene background="color: #ECECEC" loading-screen="dotsColor: red; backgroundColor: black" stats>
+	<a-scene background="color: #ECECEC" loading-screen="dotsColor: red; backgroundColor: black">
 
 		<a-assets>
 			<a-asset-item id="table" src="./objects/table.glb"></a-asset-item>
@@ -35,6 +35,14 @@
 
 				position="0 0 -0.5"
 			></a-entity>
+			<!-- <a-entity
+				data-interactive
+				gltf-model="#classroom_table"
+				position="1 -0.9 -3"
+				scale="0.002 0.002 0.002"
+				rotation="0 90 0"
+			>
+			</a-entity> -->
 		</a-camera>
 
 		<a-entity
@@ -58,22 +66,37 @@
 			gltf-model="#classroom_table"
 			position="0 -5 0"
 			scale="0.0175 0.0175 0.0175"
+			data-pickupable
 		>
 		</a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 0" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 0" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 4 0" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 8" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 8" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 4 8" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 16" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 16" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 4 16" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 24" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 24" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 4 24" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -5 32" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity data-interactive gltf-model="#classroom_table" position="0 -0.5 32" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -5 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -0.5 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 4 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -5 8" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -0.5 8" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 4 8" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -5 16" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -0.5 16" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 4 16" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -5 24" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -0.5 24" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 4 24" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -5 32" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity data-interactive data-pickupable gltf-model="#classroom_table" position="0 -0.5 32" scale="0.0175 0.0175 0.0175"></a-entity>
+
+
+<!-- DROPZONES -->
+	<a-circle
+		material="color:aqua;opacity:0.3;"
+		radius="3.5"
+		position="0 -4.8 0"
+		rotation="-90 0 0"
+		data-interactive
+		data-placeable
+		data-measurements="50cm 70cm 64cm"
+	>
+	<!-- data-measurements="l b h" -->
+	</a-circle>
 
 
 <!-- TABLE OF TEACHER -->
