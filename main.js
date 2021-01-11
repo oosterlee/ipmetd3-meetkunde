@@ -50,7 +50,86 @@
 window.addEventListener("load", function() {
 	const camera = document.querySelector(".js--camera");
 
-	camera.addEventListener("click", function(e) {
-		console.log("CLICKED!", e);
+	const interactiveEl = document.querySelectorAll("[data-interactive]");
+
+	for (let i = 0; i < interactiveEl.length; i++) {
+		const pickupable = interactiveEl[i].getAttribute("data-pickupable");
+		if (pickupable != null) {
+			addPickupEvent(interactiveEl[i]);
+		}
+
+		const placeable = interactiveEl[i].getAttribute("data-placeable");
+		if (placeable != null) {
+			addPlaceEvent(interactiveEl[i]);
+		}
+	}
+
+	// camera.addEventListener("click", function(e) {
+	// 	console.log("CLICKED!", e, e.target);
+	// 	// camera.appendChild(e.target);
+	// });
+
+
+});
+
+function addPlaceEvent(element) {
+	element.addEventListener("click", function(e) {
+		let holding = document.querySelector(".js--hold");
+		if (!holding) {
+			return;
+		}
+
+		const scene = document.querySelector("a-scene");
+		const placeEl = e.target;
+		const placePos = placeEl.getAttribute("position");
+
+		const clonedNode = holding.cloneNode();
+
+		clonedNode.classList.remove("js--hold");
+		clonedNode.setAttribute("scale", "0.0175 0.0175 0.0175");
+		clonedNode.setAttribute("position", placePos.x + " "+ placePos.y + 0.01 +" " + placePos.z);
+		scene.appendChild(clonedNode);
+
+		holding.remove();
 	});
+}
+
+function addPickupEvent(element) {
+	element.addEventListener("click", function(e) {
+		const holding = document.querySelector(".js--hold");
+		if (holding) {
+			return;
+		}
+
+		const camera = document.querySelector(".js--camera");
+		const cp = camera.getAttribute("position");
+
+		const x = 3;
+		const y = -1;
+		const z = 0;
+
+		let clonedNode = e.target.cloneNode();
+
+		clonedNode.classList.add("js--hold");
+
+		camera.appendChild(clonedNode);
+
+		e.target.remove();
+	});
+}
+
+AFRAME.registerComponent('pivotpoint', {
+	dependencies: ['position'],
+	schema: {type: 'vec3'},
+	init: function () {
+		let data = this.data;
+		
+		this.el.addEventListener('object3dset', () => {
+			let mesh = this.el.getObject3D('mesh');
+			console.log("[pivotpoint]", "getting mesh", mesh);
+			if (!mesh) return;
+
+			mesh.position.set(data.x, data.y, data.z);
+		});
+	}
 });
