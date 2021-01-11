@@ -51,17 +51,27 @@ window.addEventListener("load", function() {
 	const camera = document.querySelector(".js--camera");
 
 	const interactiveEl = document.querySelectorAll("[data-interactive]");
+	const pickupableNodes = document.querySelectorAll("[data-pickupable]");
+	const placeableNodes = document.querySelectorAll("[data-placeable]");
 
-	for (let i = 0; i < interactiveEl.length; i++) {
-		const pickupable = interactiveEl[i].getAttribute("data-pickupable");
-		if (pickupable != null) {
-			addPickupEvent(interactiveEl[i]);
-		}
+	// for (let i = 0; i < interactiveEl.length; i++) {
+	// 	const pickupable = interactiveEl[i].getAttribute("data-pickupable");
+	// 	if (pickupable != null) {
+	// 		addPickupEvent(interactiveEl[i]);
+	// 	}
 
-		const placeable = interactiveEl[i].getAttribute("data-placeable");
-		if (placeable != null) {
-			addPlaceEvent(interactiveEl[i]);
-		}
+	// 	const placeable = interactiveEl[i].getAttribute("data-placeable");
+	// 	if (placeable != null) {
+	// 		addPlaceEvent(interactiveEl[i]);
+	// 	}
+	// }
+
+	for (let i = 0; i < pickupableNodes.length; i++) {
+		addPickupEvent(pickupableNodes[i]);
+	}
+
+	for (let i = 0; i < placeableNodes.length; i++) {
+		addPlaceEvent(placeableNodes[i]);
 	}
 
 	// camera.addEventListener("click", function(e) {
@@ -75,22 +85,30 @@ window.addEventListener("load", function() {
 function addPlaceEvent(element) {
 	element.addEventListener("click", function(e) {
 		let holding = document.querySelector(".js--hold");
-		if (!holding) {
+		const placeEl = e.target;
+		const hasPlaceableAttr = placeEl.getAttribute("data-placeable") == null ? false : true;
+		if (!holding || !hasPlaceableAttr) {
+			const parentIsPlaceable = placeEl.parentEl.getAttribute("data-placeable") == null ? false : true;
+			if (parentIsPlaceable) return; // TODO: add visual feedback for the user
 			return;
 		}
 
-		const scene = document.querySelector("a-scene");
-		const placeEl = e.target;
+		if (placeEl.querySelector("[data-pickupable]") != null) return console.error("Cannot place there!"); // TODO: add visual feedback for the user
 		const placePos = placeEl.getAttribute("position");
+		const placeRot = placeEl.getAttribute("rotation");
 
 		const clonedNode = holding.cloneNode();
 
 		clonedNode.classList.remove("js--hold");
 		clonedNode.setAttribute("scale", "0.0175 0.0175 0.0175");
-		clonedNode.setAttribute("position", placePos.x + " "+ placePos.y + 0.01 +" " + placePos.z);
-		scene.appendChild(clonedNode);
+		// clonedNode.setAttribute("position", placePos.x + " "+ placePos.y + 0.01 +" " + placePos.z);
+		clonedNode.setAttribute("position", "0 0.01 0");
+		clonedNode.setAttribute("rotation", (placeRot.x * -1) + " " + (placeRot.y * -1) + " " + (placeRot.z * -1));
+		placeEl.appendChild(clonedNode);
 
 		holding.remove();
+
+		addPickupEvent(clonedNode);
 	});
 }
 
@@ -98,6 +116,7 @@ function addPickupEvent(element) {
 	element.addEventListener("click", function(e) {
 		const holding = document.querySelector(".js--hold");
 		if (holding) {
+			console.warn("Already holding something!", holding);
 			return;
 		}
 
@@ -111,6 +130,8 @@ function addPickupEvent(element) {
 		let clonedNode = e.target.cloneNode();
 
 		clonedNode.classList.add("js--hold");
+
+		clonedNode.setAttribute("position", "0 -5 0");
 
 		camera.appendChild(clonedNode);
 
@@ -126,7 +147,6 @@ AFRAME.registerComponent('pivotpoint', {
 		
 		this.el.addEventListener('object3dset', () => {
 			let mesh = this.el.getObject3D('mesh');
-			console.log("[pivotpoint]", "getting mesh", mesh);
 			if (!mesh) return;
 
 			mesh.position.set(data.x, data.y, data.z);
