@@ -153,3 +153,64 @@ AFRAME.registerComponent('pivotpoint', {
 		});
 	}
 });
+
+
+AFRAME.registerComponent('measurements', {
+	init: function() {
+		console.log(this.data);
+		const xyz = this.data.split(" ");
+		this.xMeasurement = xyz[0];
+		this.yMeasurement = xyz[1];
+		this.zMeasurement = xyz[2];
+
+		this.addedMeasurements = false;
+
+		this.el.addEventListener("object3dset", () => {
+			this.addMeasurements();
+		});
+
+	},
+	addMeasurements: function() {
+		if (this.addedMeasurements) return;
+		this.addedMeasurements = true;
+// <a-text value="30" color="white" scale="200 200 200"></a-text>
+// <a-box width="5.74" height="0.1" depth="0.1" scale="57.14 57.14 57.14"></a-box>
+		const sizes = this.getMeshSize();
+		// console.warn(sizes.min, sizes.max, sizes);
+		const size = sizes.getSize();
+
+
+		let textWidth = document.createElement("a-text");
+		// let textHeight = document.createElement("a-text");
+		// let textDepth = document.createElement("a-text");
+
+		let cubeWidth = document.createElement("a-box");
+
+
+		textWidth.setAttribute("value", this.xMeasurement);
+		textWidth.setAttribute("color", "#4470AD");
+		textWidth.setAttribute("scale", "200 200 200");
+		// console.log("0 " + size.y + " 0");
+		textWidth.setAttribute("position", "0 " + ((size.y+0.5) * 57.14) + " 0");
+
+		cubeWidth.setAttribute("width", size.x);
+		cubeWidth.setAttribute("height", "0.1");
+		cubeWidth.setAttribute("depth", "0.1");
+		cubeWidth.setAttribute("color", "#4470AD");
+		cubeWidth.setAttribute("scale", "57.14 57.14 57.14");
+		cubeWidth.setAttribute("position", "0 " + ((size.y+0.1) * 57.14) + " 0");
+
+		textWidth.setAttribute("rotation", "0 90 0");
+		cubeWidth.setAttribute("rotation", "0 90 0");
+
+		// console.log(this.el);
+		this.el.appendChild(textWidth);
+		this.el.appendChild(cubeWidth);
+	},
+	getMeshSize: function(obj) {
+		if (obj) {
+			return new THREE.Box3().setFromObject(obj);
+		}
+		return new THREE.Box3().setFromObject(this.el.object3D);
+	}
+});
