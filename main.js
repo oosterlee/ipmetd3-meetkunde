@@ -156,12 +156,20 @@ AFRAME.registerComponent('pivotpoint', {
 
 
 AFRAME.registerComponent('measurements', {
+	schema: {
+		measurements: {type: "string"},
+		units: {type: "string"}
+	},
 	init: function() {
-		console.log(this.data);
-		const xyz = this.data.split(" ");
+		const xyz = this.data.measurements.split(" ");
+		const xyzU = this.data.units.split(" ");
 		this.xMeasurement = xyz[0];
 		this.yMeasurement = xyz[1];
 		this.zMeasurement = xyz[2];
+
+		this.xUnit = xyzU[0];
+		this.yUnit = xyzU[1];
+		this.zUnit = xyzU[2];
 
 		this.addedMeasurements = false;
 
