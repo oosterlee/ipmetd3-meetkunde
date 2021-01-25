@@ -71,7 +71,11 @@ window.addEventListener("load", function() {
 	}
 
 	for (let i = 0; i < placeableNodes.length; i++) {
-		addPlaceEvent(placeableNodes[i]);
+		if (placeableNodes[i].getAttribute("data-placeable") == "0") {
+			addPlaceEvent(placeableNodes[i], 1);
+		} else{
+			addPlaceEvent(placeableNodes[i]);
+		}
 	}
 
 	// camera.addEventListener("click", function(e) {
@@ -82,9 +86,10 @@ window.addEventListener("load", function() {
 
 });
 
-function addPlaceEvent(element) {
+function addPlaceEvent(element, destroy=0) {
 	element.addEventListener("click", function(e) {
 		let holding = document.querySelector(".js--hold");
+		if (holding && destroy == 1) return holding.remove(); // TODO: Place back at starting position
 		const placeEl = e.target;
 		const hasPlaceableAttr = placeEl.getAttribute("data-placeable") == null ? false : true;
 		if (!holding || !hasPlaceableAttr) {
@@ -99,11 +104,13 @@ function addPlaceEvent(element) {
 
 		const clonedNode = holding.cloneNode();
 
+		clonedNode.setAttribute("measurements", "show", true);
+
 		clonedNode.classList.remove("js--hold");
 		clonedNode.setAttribute("scale", "0.0175 0.0175 0.0175");
 		// clonedNode.setAttribute("position", placePos.x + " "+ placePos.y + 0.01 +" " + placePos.z);
 		clonedNode.setAttribute("position", "0 0.01 0");
-		clonedNode.setAttribute("rotation", (placeRot.x * -1) + " " + (placeRot.y * -1) + " " + (placeRot.z * -1));
+		clonedNode.setAttribute("rotation", (placeRot.x * -1 + 90) + " " + (placeRot.y * -1 + 90) + " " + (placeRot.z * -1 + 90));
 		placeEl.appendChild(clonedNode);
 
 		holding.remove();
@@ -133,6 +140,14 @@ function addPickupEvent(element) {
 
 		clonedNode.setAttribute("position", "0 -5 0");
 
+		// let measurementsAttr = clonedNode.getAttribute("measurements");
+		// if (measurementsAttr) {
+		// 	measurementsAttr.show = false;
+		// 	clonedNode.setAttribute("measurements", measurementsAttr);
+		// }
+
+		clonedNode.setAttribute("measurements", "show", false);
+
 		camera.appendChild(clonedNode);
 
 		e.target.remove();
@@ -158,7 +173,8 @@ AFRAME.registerComponent('pivotpoint', {
 AFRAME.registerComponent('measurements', {
 	schema: {
 		measurements: {type: "string"},
-		units: {type: "string"}
+		units: {type: "string"},
+		show: {type: "boolean", default: true}
 	},
 	init: function() {
 		const xyz = this.data.measurements.split(" ");
@@ -178,8 +194,31 @@ AFRAME.registerComponent('measurements', {
 		});
 
 	},
+	update: function() {
+		if (!this.addedMeasurements) return;
+		const xyz = this.data.measurements.split(" ");
+		const xyzU = this.data.units.split(" ");
+		this.xMeasurement = xyz[0];
+		this.yMeasurement = xyz[1];
+		this.zMeasurement = xyz[2];
+
+		this.xUnit = xyzU[0];
+		this.yUnit = xyzU[1];
+		this.zUnit = xyzU[2];
+
+		const mt = this.el.querySelector(".measurementText");
+		const mc = this.el.querySelector(".measurementCube");
+
+		if (mt) mt.remove();
+		if (mc) mc.remove();
+		this.addedMeasurements = false;
+		if (this.el.object3D) {
+			this.addMeasurements();
+		}
+	},
 	addMeasurements: function() {
 		if (this.addedMeasurements) return;
+		console.log("addMeasurements", this.data.show);
 		this.addedMeasurements = true;
 // <a-text value="30" color="white" scale="200 200 200"></a-text>
 // <a-box width="5.74" height="0.1" depth="0.1" scale="57.14 57.14 57.14"></a-box>
@@ -189,27 +228,33 @@ AFRAME.registerComponent('measurements', {
 
 
 		let textWidth = document.createElement("a-text");
+		textWidth.classList.add("measurementText");
 		// let textHeight = document.createElement("a-text");
 		// let textDepth = document.createElement("a-text");
 
 		let cubeWidth = document.createElement("a-box");
+		cubeWidth.classList.add("measurementCube");
 
 
-		textWidth.setAttribute("value", this.xMeasurement);
+		textWidth.setAttribute("value", this.xMeasurement + this.xUnit);
 		textWidth.setAttribute("color", "#4470AD");
 		textWidth.setAttribute("scale", "200 200 200");
 		// console.log("0 " + size.y + " 0");
-		textWidth.setAttribute("position", "0 " + ((size.y+0.5) * 57.14) + " 0");
+		textWidth.setAttribute("position", "0 " + ((size.y+25) * 1) + " 50");
+
+		textWidth.setAttribute("visible", this.data.show);
 
 		cubeWidth.setAttribute("width", size.x);
-		cubeWidth.setAttribute("height", "0.1");
-		cubeWidth.setAttribute("depth", "0.1");
+		cubeWidth.setAttribute("height", "4");
+		cubeWidth.setAttribute("depth", "4");
 		cubeWidth.setAttribute("color", "#4470AD");
-		cubeWidth.setAttribute("scale", "57.14 57.14 57.14");
-		cubeWidth.setAttribute("position", "0 " + ((size.y+0.1) * 57.14) + " 0");
+		// cubeWidth.setAttribute("scale", "1 1 1");
+		cubeWidth.setAttribute("position", "0 " + ((size.y+0.1) * 1) + " 0");
 
 		textWidth.setAttribute("rotation", "0 90 0");
 		cubeWidth.setAttribute("rotation", "0 90 0");
+
+		cubeWidth.setAttribute("visible", this.data.show);
 
 		// console.log(this.el);
 		this.el.appendChild(textWidth);
@@ -219,6 +264,6 @@ AFRAME.registerComponent('measurements', {
 		if (obj) {
 			return new THREE.Box3().setFromObject(obj);
 		}
-		return new THREE.Box3().setFromObject(this.el.object3D);
+		return new THREE.Box3().setFromObject(this.el.object3D.children[0]);
 	}
 });
