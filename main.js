@@ -1,3 +1,20 @@
+window.onload = () => {
+	console.log("js connected");
+	const hintsKnop = document.getElementById("hintsKnop--js");
+	const hints = document.getElementById("hintsText--js");
+	const inhoud = ["item1", "item2", "item3"];
+	let index = 0;
+
+	function hintsText(getal) {
+	    console.log(getal);
+	    hints.setAttribute("value", inhoud[getal]);
+	}
+
+	hintsKnop.onclick = (event) => {
+		console.log(index);
+			hintsKnop(index), index++;	
+	}
+}
 // window.addEventListener("load", function() {
 // 	console.log("Loaded!");
 
@@ -66,6 +83,7 @@ window.addEventListener("load", function() {
 	// 	}
 	// }
 
+
 	for (let i = 0; i < pickupableNodes.length; i++) {
 		addPickupEvent(pickupableNodes[i]);
 	}
@@ -81,6 +99,11 @@ window.addEventListener("load", function() {
 
 
 });
+
+
+
+
+
 
 function addPlaceEvent(element) {
 	element.addEventListener("click", function(e) {
@@ -138,6 +161,24 @@ function addPickupEvent(element) {
 		e.target.remove();
 	});
 }
+
+// const test = document.getElementById("hintsKnop--js");
+// const hints = document.getElementById("hintsText--js");
+// const inhoud = ["item1", "item2", "item3"];
+// let index = 0;
+
+// function hintsText(getal) {
+//     console.log(getal);
+//     hints.setAttribute("value", inhoud[getal]);
+// }
+
+// test.onclick = (event) => {
+// 	console.log("check");
+// 	test(index), index++;
+// }
+
+
+
 
 AFRAME.registerComponent('pivotpoint', {
 	dependencies: ['position'],

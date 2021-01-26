@@ -13,6 +13,8 @@
 		<a-assets>
 			<a-asset-item id="table" src="./objects/table.glb"></a-asset-item>
 			<a-asset-item id="tree" src="./objects/tree.glb"></a-asset-item>
+			<a-asset-item id="digibord-obj" src="./objects/digibord.obj"></a-asset-item>
+			<a-asset-item id="digibord-mtl" src="./objects/digibord.mtl"></a-asset-item>
 
 			<a-asset-item id="classroom_floor" src="./objects/classroom_floor.glb"></a-asset-item>
 			<a-asset-item id="classroom_chair" src="./objects/classroom_chair.glb"></a-asset-item>
@@ -21,6 +23,14 @@
 
 			<a-img id="classroom_poster" src="./objects/meetkunde_poster.png"></a-img>
 		</a-assets>
+
+		<a-box id="hintsKnop--js" color="green" position="-13 -0.5 -31.4" width="2"> 
+			<a-text text="value: Hints" position="-0.5 0 0.6" color="white" scale="2 2 2"></a-text>
+		</a-box>
+		<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-1 -1 -31.4" scale="1.9 1.9 1.9" >
+			<a-text id="hintsText--js"  text="value: Welkom" position="-2 3 0.1" color="black" scale="5 5 5"></a-text>
+		</a-obj-model>
+
 
 		<a-camera class="js--camera" wasd-controls="acceleration:400" position="20 0 25">
 			<a-entity
