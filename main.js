@@ -14,7 +14,26 @@ window.onload = () => {
 		console.log(index);
 		hintsText(index), index++;	
 	}
+
+	const introKnop = document.getElementById("introKnop--js");
+	const intro = document.getElementById("introText--js");
+	const inh = ["Hier kan text in voor \n intro", "item2", "item3"];
+	let ind = 0;
+
+	function introText(getal) {
+	    console.log(getal);
+	    intro.setAttribute("value", inh[getal]);
+	}
+
+	introText.onclick = (event) => {
+		console.log(ind);
+		introText(ind), ind++;	
+	}
 }
+
+
+
+
 // window.addEventListener("load", function() {
 // 	console.log("Loaded!");
 
