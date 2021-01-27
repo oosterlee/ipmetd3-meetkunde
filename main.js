@@ -1,3 +1,20 @@
+window.onload = () => {
+	console.log("js connected");
+	const hintsKnop = document.getElementById("hintsKnop--js");
+	const hints = document.getElementById("hintsText--js");
+	const inhoud = ["Hier kan text in voor \n hints", "item2", "item3"];
+	let index = 0;
+
+	function hintsText(getal) {
+	    console.log(getal);
+	    hints.setAttribute("value", inhoud[getal]);
+	}
+
+	hintsKnop.onclick = (event) => {
+		console.log(index);
+		hintsText(index), index++;	
+	}
+}
 // window.addEventListener("load", function() {
 // 	console.log("Loaded!");
 
@@ -66,6 +83,7 @@ window.addEventListener("load", function() {
 	// 	}
 	// }
 
+
 	for (let i = 0; i < pickupableNodes.length; i++) {
 		addPickupEvent(pickupableNodes[i]);
 	}
@@ -85,7 +103,6 @@ window.addEventListener("load", function() {
 
 
 });
-
 
 function speak(text, done=function() {}) {
 	const voices = speechSynthesis.getVoices();
@@ -204,7 +221,6 @@ AFRAME.registerComponent('pivotpoint', {
 		});
 	}
 });
-
 
 AFRAME.registerComponent('measurements', {
 	schema: {

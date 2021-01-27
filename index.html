@@ -5,7 +5,7 @@
 	<title>Opdracht Meetkunde</title>
 	<meta name="description" content="A-Frame tests">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-	<script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script>
+	<!-- <script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script> -->
 	<script src="./main.js"></script>
 </head>
 <body>
@@ -13,6 +13,8 @@
 		<a-assets>
 			<a-asset-item id="table" src="./objects/table.glb"></a-asset-item>
 			<a-asset-item id="tree" src="./objects/tree.glb"></a-asset-item>
+			<a-asset-item id="digibord-obj" src="./objects/digibord.obj"></a-asset-item>
+			<a-asset-item id="digibord-mtl" src="./objects/digibord.mtl"></a-asset-item>
 
 			<a-asset-item id="classroom_floor" src="./objects/classroom_floor.glb"></a-asset-item>
 			<a-asset-item id="classroom_chair" src="./objects/classroom_chair.glb"></a-asset-item>
@@ -23,8 +25,16 @@
 			<a-img id="classroom_poster" src="./objects/meetkunde_poster.png"></a-img>
 		</a-assets>
 
+		<a-box id="hintsKnop--js" class="interact--js" color="green" position="-13 -0.5 -31.4" width="3" height="1.5"> 
+			<a-text text="value: Hints" position="0 0 0.6" color="white" scale="3.5 3.5 3.5" align="center"></a-text>
+		</a-box>
+		<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-1 -1 -31.4" scale="1.9 1.9 1.9">
+			<a-text id="hintsText--js"  text="value: Welkom" position="-0.1 3 0.1" color="black" scale="5 5 5" width="2.4" align="center"></a-text>
+		</a-obj-model>
+
+
 		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25"> -->
-			<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 27" camera-rotate="0 180 0"></a-camera>
+		<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0">
 			<a-entity
 				animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
 				animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
@@ -36,7 +46,7 @@
 
 				geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
 
-				raycaster="objects: [data-interactive],[data-placeable]"
+				raycaster="objects: [data-interactive],[data-placeable], .interact--js"
 
 				position="0 0 -0.5"
 			></a-entity>
