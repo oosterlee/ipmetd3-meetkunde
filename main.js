@@ -1,3 +1,20 @@
+window.onload = () => {
+	console.log("js connected");
+	const hintsKnop = document.getElementById("hintsKnop--js");
+	const hints = document.getElementById("hintsText--js");
+	const inhoud = ["Hier kan text in voor \n hints", "item2", "item3"];
+	let index = 0;
+
+	function hintsText(getal) {
+	    console.log(getal);
+	    hints.setAttribute("value", inhoud[getal]);
+	}
+
+	hintsKnop.onclick = (event) => {
+		console.log(index);
+		hintsText(index), index++;	
+	}
+}
 // window.addEventListener("load", function() {
 // 	console.log("Loaded!");
 
@@ -96,6 +113,7 @@ window.addEventListener("load", function() {
 	// 		addPlaceEvent(interactiveEl[i]);
 	// 	}
 	// }
+
 
 	for (let i = 0; i < pickupableNodes.length; i++) {
 		addPickupEvent(pickupableNodes[i]);
@@ -221,6 +239,17 @@ function addPickupEvent(element) {
 	});
 }
 
+AFRAME.registerComponent("camera-rotate", {
+    init: function() {
+        let angles = this.data.split(" ");
+        let xAngle = Number(angles[0]);
+        let yAngle = Number(angles[1]);
+
+        this.el.components['look-controls'].pitchObject.rotation.x = THREE.Math.degToRad(xAngle);
+        this.el.components['look-controls'].yawObject.rotation.y = THREE.Math.degToRad(yAngle);
+    }
+});
+
 AFRAME.registerComponent('pivotpoint', {
 	dependencies: ['position'],
 	schema: {type: 'vec3'},
@@ -235,7 +264,6 @@ AFRAME.registerComponent('pivotpoint', {
 		});
 	}
 });
-
 
 AFRAME.registerComponent('measurements', {
 	schema: {
