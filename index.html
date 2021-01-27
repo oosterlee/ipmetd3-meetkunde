@@ -5,7 +5,7 @@
 	<title>Opdracht Meetkunde</title>
 	<meta name="description" content="A-Frame tests">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-	<!-- <script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script> -->
+	<script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script>
 	<script src="./main.js"></script>
 </head>
 <body>
@@ -23,7 +23,8 @@
 			<a-img id="classroom_poster" src="./objects/meetkunde_poster.png"></a-img>
 		</a-assets>
 
-		<a-camera class="js--camera" wasd-controls="acceleration:800" position="15 1.6 15">
+		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25"> -->
+			<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25"></a-camera>
 			<a-entity
 				animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
 				animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
@@ -179,6 +180,42 @@
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 24" scale="0.0175 0.0175 0.0175"></a-entity> -->
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 32" scale="0.0175 0.0175 0.0175"></a-entity> -->
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 32" scale="0.0175 0.0175 0.0175"></a-entity> -->
+
+
+	<!-- SET OF TABLES IN STARTING ROOM -->
+		<a-entity
+				gltf-model="#table"
+				scale="0.0075 0.0075 0.0075"
+				rotation="0 -90 0"
+				position="-162 0 44"
+			>
+			</a-entity>
+		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-162 -5 30" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-162 -5 18" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-162 -5 6" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+
+		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-150 -5 30" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-150 -5 18" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-150 -5 6" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		
+		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-138 -5 30" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-138 -5 18" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-138 -5 6" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+
+
+	<!-- SET OF TABLES IN STARTING ROOM -->
+		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-162 -1.65 2" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-162 -1.65 14" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-162 -1.65 26" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+
+		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-150 -1.65 2" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-150 -1.65 14" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-150 -1.65 26" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+
+		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-138 -1.65 2" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-138 -1.65 14" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-138 -1.65 26" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
+	
 
 
 <!-- DROPZONES -->
