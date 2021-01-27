@@ -10,7 +10,6 @@
 </head>
 <body>
 	<a-scene background="color: #ECECEC" loading-screen="dotsColor: red; backgroundColor: black">
-
 		<a-assets>
 			<a-asset-item id="table" src="./objects/table.glb"></a-asset-item>
 			<a-asset-item id="tree" src="./objects/tree.glb"></a-asset-item>
@@ -85,6 +84,73 @@
 		<!-- <a-plane src="#classroom_poster" width="30" height="40"  position="0 -5 0"></a-plane> -->
 		<a-image src="#classroom_poster" width="16" height="8" position="20 3 -31.4"></a-image>
 
+
+		<!-- LIGHTS -->
+		<a-entity class="schoolLight" position="-14 10 -18">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<a-entity class="schoolLight" position="14 10 -18">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<a-entity class="schoolLight" position="-14 10 18">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<a-entity class="schoolLight" position="14 10 18">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+
+		<!-- <a-light type="point" position="0 10 9" intensity="1"></a-light> -->
+
+<!-- CAMERA POSITIONS -->
+
 <!-- SET OF TABLES -->
 		<a-entity
 			measurements="measurements: 30 30 30; units: cm cm cm"
@@ -97,20 +163,23 @@
 		>
 		</a-entity>
 
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 0" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 0" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 0" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 8" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 8" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 8" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 16" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 16" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 16" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 24" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 24" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 24" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 32" scale="0.0175 0.0175 0.0175"></a-entity>
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 32" scale="0.0175 0.0175 0.0175"></a-entity>
+
+		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 -6" scale="0.0175 0.0175 0.0175"></a-entity>
+
+		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 2" scale="0.0175 0.0175 0.0175"></a-entity>
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 0" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 0" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 10" scale="0.0175 0.0175 0.0175"></a-entity>
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 8" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 8" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 18" scale="0.0175 0.0175 0.0175"></a-entity>
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 16" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 16" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 26" scale="0.0175 0.0175 0.0175"></a-entity>
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 24" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 24" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 32" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 32" scale="0.0175 0.0175 0.0175"></a-entity> -->
 
 
 	<!-- SET OF TABLES IN STARTING ROOM -->
@@ -150,6 +219,17 @@
 
 
 <!-- DROPZONES -->
+	<a-plane
+		material="color:red;opacity:0.3;"
+		height="10"
+		width="10"
+		position="-30 6 9"
+		rotation="0 90 0"
+		data-placeable="0"
+		data-interactive
+	></a-plane>
+
+
 	<a-circle
 		material="color:aqua;opacity:0.3;"
 		radius="3.5"
