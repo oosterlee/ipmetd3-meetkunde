@@ -64,6 +64,37 @@ window.onload = () => {
 // 	window.requestAnimationFrame(handleKeys);
 // });
 
+
+const levels = [
+	{
+		name: "Level 1",
+		tables: ["measurements: 3 3 3; units: cm cm cm",
+				"measurements: 300 300 300; units: cm cm cm",
+				"measurements: 30 30 30; units: cm cm cm"],
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 300 300 300; units: mm mm mm"],
+			chairs: []
+		},
+		points: 10,
+	},
+	{
+		name: "Level 2",
+		tables: ["measurements: 30 30 30; units: cm cm cm",
+				"measurements: 300 300 300; units: cm cm cm",
+				"measurements: 3000 3000 3000; units: cm cm cm"],
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 0.3 0.3 0.3; units: m m m"],
+			chairs: []
+		},
+		points: 10,
+	},
+];
+
+let currentLevel = 0;
+
+
 window.addEventListener("load", function() {
 	const camera = document.querySelector(".js--camera");
 
@@ -103,6 +134,18 @@ window.addEventListener("load", function() {
 
 
 });
+
+function loadLevel(level=currentLevel) {
+	let lvl = levels[level];
+}
+
+function placeTables(tablesInfo) {
+
+}
+
+function placeChairs(chairsInfo) {
+
+}
 
 function speak(text, done=function() {}) {
 	const voices = speechSynthesis.getVoices();
