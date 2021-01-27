@@ -87,16 +87,27 @@ window.addEventListener("load", function() {
 });
 
 
-function speak(text) {
-	const lang = "nl-Nl";
-	const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&client=tw-ob&q=${text}`;
-	let audio = document.createElement("video");
-	if (!audio) return console.warn("No audio element!");
-	document.body.appendChild(audio);
+function speak(text, done=function() {}) {
+	const voices = speechSynthesis.getVoices();
+	utterance = new SpeechSynthesisUtterance(text);
 
-	audio.autostart = true;
-	audio.src = url;
-	audio.start();
+	for (let i = 0; i < voices.length; i++) {
+		if (voices[i].lang == "nl-Nl") {
+			console.log("Found!");
+			utterance.voice = voices[i];
+			break;
+		}
+	}
+
+    utterance.voiceURI = 'native';
+    utterance.volume = 1; // 0 to 1
+    utterance.rate = 0.9; // 0.1 to 10
+    utterance.pitch = 0.95; //0 to 2
+    utterance.text = text;
+    utterance.lang = 'nl-Nl';
+	speechSynthesis.speak(utterance);
+
+	utterance.onend = done;
 }
 
 
