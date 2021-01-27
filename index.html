@@ -24,7 +24,7 @@
 		</a-assets>
 
 		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25"> -->
-			<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25"></a-camera>
+			<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 27" camera-rotate="0 180 0"></a-camera>
 			<a-entity
 				animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
 				animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
@@ -81,8 +81,7 @@
 		>
 		</a-entity>
 		
-		<!-- <a-plane src="#classroom_poster" width="30" height="40"  position="0 -5 0"></a-plane> -->
-		<a-image src="#classroom_poster" width="16" height="8" position="20 3 -31.4"></a-image>
+		<a-image src="#classroom_poster" width="16" height="8" position="20 7 -31.4"></a-image>
 
 
 		<!-- LIGHTS -->
@@ -132,6 +131,113 @@
 		</a-entity>
 
 		<a-entity class="schoolLight" position="14 10 18">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<!--HALL LIGHTS-->
+		<a-entity class="schoolLight" position="-52 10 -20">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<a-entity class="schoolLight" position="-90 10 -20">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<a-entity class="schoolLight" position="-126 10 -20">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<!--STARTING ROOOM LIGHTS-->
+		<a-entity class="schoolLight" position="-160 10 8">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<a-entity class="schoolLight" position="-160 10 42">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<a-entity class="schoolLight" position="-128 10 8">
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
+			<a-box
+				light="type: point; intensity: 1; distance: 50;"
+				position="0 0 0"
+				depth="2"
+				height="0.25"
+				width="10"
+				material="emissive: #FFF;"
+
+				class="light"
+			></a-box>
+		</a-entity>
+
+		<a-entity class="schoolLight" position="-128 10 44">
 			<a-box class="beam" height="3" depth="0.1" width="0.1" position="-4 1.5 0" material="roughness: 1; color: black;"></a-box>
 			<a-box class="beam" height="3" depth="0.1" width="0.1" position="4 1.5 0" material="roughness: 1; color: black;"></a-box>
 			<a-box
@@ -203,7 +309,7 @@
 		<a-entity gltf-model="#classroom_table" pivotpoint="0 100 0" position="-138 -5 6" rotation="0 90 0" scale="0.0175 0.0175 0.0175"></a-entity>
 
 
-	<!-- SET OF TABLES IN STARTING ROOM -->
+	<!-- SET OF CHAIRS IN STARTING ROOM -->
 		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-162 -1.65 2" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
 		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-162 -1.65 14" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
 		<a-entity gltf-model="#classroom_chair" pivotpoint="0 -100 0" position="-162 -1.65 26" rotation="0 -90 0" scale="0.0175 0.0175 0.0175"></a-entity>
@@ -266,8 +372,8 @@
 		<a-entity
 			gltf-model="#table"
 			scale="0.0075 0.0075 0.0075"
-			rotation="0 -90 0"
-			position="1 0 -10"
+			rotation="0 90 0"
+			position="18 0 -20"
 		>
 		</a-entity>
 		<a-entity

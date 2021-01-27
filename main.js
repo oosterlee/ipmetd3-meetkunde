@@ -179,6 +179,17 @@ function addPickupEvent(element) {
 	});
 }
 
+AFRAME.registerComponent("camera-rotate", {
+    init: function() {
+        let angles = this.data.split(" ");
+        let xAngle = Number(angles[0]);
+        let yAngle = Number(angles[1]);
+
+        this.el.components['look-controls'].pitchObject.rotation.x = THREE.Math.degToRad(xAngle);
+        this.el.components['look-controls'].yawObject.rotation.y = THREE.Math.degToRad(yAngle);
+    }
+});
+
 AFRAME.registerComponent('pivotpoint', {
 	dependencies: ['position'],
 	schema: {type: 'vec3'},
