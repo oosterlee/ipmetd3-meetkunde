@@ -196,23 +196,16 @@ function addPickupEvent(element) {
 	});
 }
 
-// const test = document.getElementById("hintsKnop--js");
-// const hints = document.getElementById("hintsText--js");
-// const inhoud = ["item1", "item2", "item3"];
-// let index = 0;
+AFRAME.registerComponent("camera-rotate", {
+    init: function() {
+        let angles = this.data.split(" ");
+        let xAngle = Number(angles[0]);
+        let yAngle = Number(angles[1]);
 
-// function hintsText(getal) {
-//     console.log(getal);
-//     hints.setAttribute("value", inhoud[getal]);
-// }
-
-// test.onclick = (event) => {
-// 	console.log("check");
-// 	test(index), index++;
-// }
-
-
-
+        this.el.components['look-controls'].pitchObject.rotation.x = THREE.Math.degToRad(xAngle);
+        this.el.components['look-controls'].yawObject.rotation.y = THREE.Math.degToRad(yAngle);
+    }
+});
 
 AFRAME.registerComponent('pivotpoint', {
 	dependencies: ['position'],
