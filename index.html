@@ -24,11 +24,11 @@
 			<a-img id="classroom_poster" src="./objects/meetkunde_poster.png"></a-img>
 		</a-assets>
 
-		<a-box id="hintsKnop--js" color="green" position="-13 -0.5 -31.4" width="2"> 
+		<a-box id="hintsKnop--js" class="interact--js" color="green" position="-13 -0.5 -31.4" width="2"> 
 			<a-text text="value: Hints" position="-0.5 0 0.6" color="white" scale="2 2 2"></a-text>
 		</a-box>
-		<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-1 -1 -31.4" scale="1.9 1.9 1.9" >
-			<a-text id="hintsText--js"  text="value: Welkom" position="-2 3 0.1" color="black" scale="5 5 5"></a-text>
+		<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-1 -1 -31.4" scale="1.9 1.9 1.9">
+			<a-text id="hintsText--js"  text="value: Welkom" position="-0.1 3 0.1" color="black" scale="5 5 5" width="2.4" align="center"></a-text>
 		</a-obj-model>
 
 
@@ -44,7 +44,7 @@
 
 				geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
 
-				raycaster="objects: [data-interactive],[data-placeable]"
+				raycaster="objects: [data-interactive],[data-placeable], .interact--js"
 
 				position="0 0 -0.5"
 			></a-entity>

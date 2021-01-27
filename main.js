@@ -2,7 +2,7 @@ window.onload = () => {
 	console.log("js connected");
 	const hintsKnop = document.getElementById("hintsKnop--js");
 	const hints = document.getElementById("hintsText--js");
-	const inhoud = ["item1", "item2", "item3"];
+	const inhoud = ["Hier kan text in voor \n hints", "item2", "item3"];
 	let index = 0;
 
 	function hintsText(getal) {
@@ -12,7 +12,7 @@ window.onload = () => {
 
 	hintsKnop.onclick = (event) => {
 		console.log(index);
-			hintsKnop(index), index++;	
+		hintsText(index), index++;	
 	}
 }
 // window.addEventListener("load", function() {
