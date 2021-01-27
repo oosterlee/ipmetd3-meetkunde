@@ -86,6 +86,20 @@ window.addEventListener("load", function() {
 
 });
 
+
+function speak(text) {
+	const lang = "nl-Nl";
+	const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&client=tw-ob&q=${text}`;
+	let audio = document.createElement("video");
+	if (!audio) return console.warn("No audio element!");
+	document.body.appendChild(audio);
+
+	audio.autostart = true;
+	audio.src = url;
+	audio.start();
+}
+
+
 function addPlaceEvent(element, destroy=0) {
 	element.addEventListener("click", function(e) {
 		let holding = document.querySelector(".js--hold");
