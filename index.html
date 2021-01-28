@@ -51,8 +51,8 @@
 <!-- 		<a-entity sound="src: #kindergeluid; autoplay: true; volume: 0.5; rollofffactor: 4"; position="-148 -1 53.5"></a-entity> -->
 
 
-		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25"> -->
-		<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0">
+		<a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25">
+		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0"> -->
 			<a-entity
 				animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
 				animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
@@ -286,7 +286,20 @@
 <!-- CAMERA POSITIONS -->
 
 <!-- SET OF TABLES -->
-		<a-entity
+		<a-entity class="js--tableholder">
+			
+		</a-entity>
+
+		<a-entity class="js--chairholder">
+			
+		</a-entity>
+
+		<a-entity class="js--dropzoneholder">
+			
+		</a-entity>
+
+
+		<!-- <a-entity
 			measurements="measurements: 30 30 30; units: cm cm cm"
 			data-interactive
 			gltf-model="#classroom_table"
@@ -295,20 +308,23 @@
 			position="0 -5 0"
 			data-pickupable
 		>
-		</a-entity>
+		</a-entity> -->
 
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 -6" scale="0.0175 0.0175 0.0175"></a-entity>
-
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 2" scale="0.0175 0.0175 0.0175"></a-entity>
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 0" scale="0.0175 0.0175 0.0175"></a-entity> -->
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 0" scale="0.0175 0.0175 0.0175"></a-entity> -->
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 10" scale="0.0175 0.0175 0.0175"></a-entity>
+
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 10" scale="0.0175 0.0175 0.0175"></a-entity> -->
+
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 8" scale="0.0175 0.0175 0.0175"></a-entity> -->
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 8" scale="0.0175 0.0175 0.0175"></a-entity> -->
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 18" scale="0.0175 0.0175 0.0175"></a-entity>
+
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 18" scale="0.0175 0.0175 0.0175"></a-entity> -->
+
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 16" scale="0.0175 0.0175 0.0175"></a-entity> -->
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 16" scale="0.0175 0.0175 0.0175"></a-entity> -->
-		<a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 26" scale="0.0175 0.0175 0.0175"></a-entity>
+
+		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 26" scale="0.0175 0.0175 0.0175"></a-entity> -->
+		
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -0.5 24" scale="0.0175 0.0175 0.0175"></a-entity> -->
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 4 24" scale="0.0175 0.0175 0.0175"></a-entity> -->
 		<!-- <a-entity measurements="measurements: 30 30 30; units: cm cm cm" data-interactive data-pickupable gltf-model="#classroom_table" pivotpoint="0 100 0" position="-20 -5 32" scale="0.0175 0.0175 0.0175"></a-entity> -->
@@ -401,10 +417,12 @@
 		rotation="0 90 0"
 		data-placeable="0"
 		data-interactive
-	></a-plane>
+	>
+		<a-text value="Plaats tafel terug" scale="5 5 5" position="-4.25 4 0.1"></a-text>
+	</a-plane>
 
 
-	<a-circle
+	<!-- <a-circle
 		material="color:aqua;opacity:0.3;"
 		radius="3.5"
 		position="0 -4.99 0"
@@ -413,8 +431,8 @@
 		data-placeable
 		data-measurements="50cm 70cm 64cm"
 	>
-	</a-circle>
-	<a-circle
+	</a-circle> -->
+	<!-- <a-circle
 		material="color:aqua;opacity:0.3;"
 		radius="3.5"
 		position="10 -4.99 0"
@@ -423,8 +441,8 @@
 		data-placeable
 		data-measurements="50cm 70cm 64cm"
 	>
-	</a-circle>
-	<a-circle
+	</a-circle> -->
+	<!-- <a-circle
 		material="color:aqua;opacity:0.3;"
 		radius="3.5"
 		position="20 -4.99 0"
@@ -433,7 +451,7 @@
 		data-placeable
 		data-measurements="50cm 70cm 64cm"
 	>
-	</a-circle>
+	</a-circle> -->
 
 
 <!-- TABLE OF TEACHER -->

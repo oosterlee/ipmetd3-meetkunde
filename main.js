@@ -1,3 +1,20 @@
+/*jshint esversion: 6 */
+const TABLECHAIR_START_POS = [-20, -5, 26];
+const TABLECHAIR_INCREMENT = [0, 0, -8];
+
+const DROPZONE_START_POS = [0, -4.99, 0];
+const DROPZONE_INCREMENT = [10, 0, 0];
+
+const DROPZONE_TABLE_SIZE = 3.5;
+const DROPZONE_CHAIR_SIZE = 2.5;
+
+const DROPZONE_TABLE_START_POS = [];
+const DROPZONE_CHAIR_START_POS = [];
+
+const MEASUREMENTS_TEXT_COLOR = "white";
+const MEASUREMENTS_LINE_COLOR = "white";
+
+
 window.onload = () => {
 	console.log("js connected");
 	const hintsKnop = document.getElementById("hintsKnop--js");
@@ -82,6 +99,37 @@ window.onload = () => {
 // 	window.requestAnimationFrame(handleKeys);
 // });
 
+
+const levels = [
+	{
+		name: "Level 1",
+		tables: ["measurements: 3 3 3; units: cm cm cm",
+				"measurements: 300 300 300; units: cm cm cm",
+				"measurements: 30 30 30; units: cm cm cm"],
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 300 300 300; units: mm mm mm"],
+			chairs: []
+		},
+		points: 10,
+	},
+	{
+		name: "Level 2",
+		tables: ["measurements: 30 30 30; units: cm cm cm",
+				"measurements: 300 300 300; units: cm cm cm",
+				"measurements: 3000 3000 3000; units: cm cm cm"],
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 0.3 0.3 0.3; units: m m m"],
+			chairs: []
+		},
+		points: 10,
+	},
+];
+
+let currentLevel = 0;
+
+
 window.addEventListener("load", function() {
 	const camera = document.querySelector(".js--camera");
 
@@ -119,8 +167,184 @@ window.addEventListener("load", function() {
 	// 	// camera.appendChild(e.target);
 	// });
 
+	loadLevel();
+
 
 });
+
+// const units = {
+// 	"mm": 1,
+// 	"cm": 10,
+// 	"dm": 100,
+// 	"m": 1000,
+// 	"dam": 10000,
+// 	"hm": 100000,
+// 	"km": 1000000,
+// };
+
+const units = {
+	"mm": 1,
+	"cm": 2,
+	"dm": 3,
+	"m": 4,
+	"dam": 5,
+	"hm": 6,
+	"km": 7,
+};
+
+function calculateLength(length, unit, to="cm") {
+	let calculatedLength;
+
+	if (unit == to) return length;
+
+	const diff = units[unit] - units[to];
+
+	calculatedLength = length * (10 ** diff);
+
+	return Number(calculatedLength.toPrecision(1));
+}
+
+
+function addPosArrays(arr1, arr2, addTimes=1) {
+	let tmp = Array.from(arr1);
+	tmp[0] += isNaN(arr2[0]*addTimes) ? 0 : arr2[0]*addTimes;
+	tmp[1] += isNaN(arr2[1]*addTimes) ? 0 : arr2[1]*addTimes;
+	tmp[2] += isNaN(arr2[2]*addTimes) ? 0 : arr2[2]*addTimes;
+	return tmp;
+}
+
+function pos2str(pos) {
+	return pos.join(" ");
+}
+
+function getCurrentLevel() {
+	return levels[currentLevel];
+}
+
+function loadLevel(levelId=currentLevel) {
+	removeElementsFromLevel();
+	currentLevel = levelId;
+
+	let lvl = levels[levelId];
+
+
+	console.log("Loading level: ", lvl.name);
+
+	placeTables(lvl.tables);
+	placeChairs(lvl.chairs);
+	placeDropzones(lvl.dropzones);
+}
+
+function removeElementsFromLevel() {
+	let elements = document.querySelectorAll("[data-pickupable], [data-placeable]:not(a-plane)");
+
+	for (let i = 0; i < elements.length; i++) {
+		elements[i].remove();
+	}
+}
+
+function placeTables(tables) {
+	for (let i = 0; i < tables.length; i++) {
+		tableMeasurements = tables[i];
+		placeTable(tableMeasurements, addPosArrays(TABLECHAIR_START_POS, TABLECHAIR_INCREMENT, i));
+	}
+}
+
+function replaceTable(tableElement) {
+	let clonedNode = aFrameCloneFully(tableElement);
+	clonedNode.setAttribute("position", tableElement.getAttribute("original-position"));
+	clonedNode.classList.remove("js--hold");
+
+	clonedNode.setAttribute("measurements", "show", true);
+
+	addPickupEvent(clonedNode);
+
+	document.querySelector(".js--tableholder").appendChild(clonedNode);
+
+	tableElement.remove();
+}
+
+function placeTable(tableMeasurements, position=TABLECHAIR_START_POS) {
+		console.log(tableMeasurements, position);
+
+		const tableElement = createTableElement(tableMeasurements, position);
+
+		document.querySelector(".js--tableholder").appendChild(tableElement);
+}
+
+function createTableElement(measurementsAttr, position=TABLECHAIR_START_POS) {
+	let tableElement = document.createElement("a-entity");
+
+	tableElement.setAttribute("data-interactive", "");
+	tableElement.setAttribute("data-pickupable", "");
+	tableElement.setAttribute("gltf-model", "#classroom_table");
+	tableElement.setAttribute("scale", "0.0175 0.0175 0.0175");
+	tableElement.setAttribute("pivotpoint", "0 100 0");
+	tableElement.setAttribute("position", pos2str(position));
+	tableElement.setAttribute("measurements", measurementsAttr);
+	tableElement.setAttribute("original-position", pos2str(position));
+
+	addPickupEvent(tableElement);
+
+	return tableElement;
+}
+
+function placeChairs(chairs) {
+	for (let i = 0; i < chairs.length; i++) {
+		chairMeasurements = chairs[i];
+		placeChair(chairMeasurements, addPosArrays(TABLECHAIR_START_POS, TABLECHAIR_INCREMENT, i));
+	}
+}
+
+function placeChair(chairMeasurements, position=TABLECHAIR_START_POS) {
+		console.log(chairMeasurements, position);
+}
+
+function placeDropzones(dropzones) {
+	for (let i = 0; i < dropzones.tables.length; i++) {
+		console.log(addPosArrays(DROPZONE_START_POS, DROPZONE_INCREMENT, i));
+		placeDropzone(dropzones.tables[i], addPosArrays(DROPZONE_START_POS, DROPZONE_INCREMENT, i), "table");
+	}
+
+	for (let i = 0; i < dropzones.chairs.length; i++) {
+		placeDropzone(dropzone.chairs[i], addPosArrays(DROPZONE_START_POS, DROPZONE_INCREMENT, i), "chair");
+	}
+}
+
+function placeDropzone(measurementsAttr, position=DROPZONE_START_POS, type="table") {
+	const dropzoneElement = createDropzoneElement(measurementsAttr, position, type);
+
+	dropzoneElement.addEventListener("object3dset", () => {
+		dropzoneElement.setAttribute("measurements", measurementsAttr);
+	});
+
+	document.querySelector(".js--dropzoneholder").appendChild(dropzoneElement);
+}
+
+// material="color:aqua;opacity:0.3;"
+// 		radius="3.5"
+// 		position="0 -4.99 0"
+// 		rotation="-90 0 0"
+// 		data-interactive
+// 		data-placeable
+// 		data-measurements="50cm 70cm 64cm"
+
+function createDropzoneElement(measurementsAttr, position=DROPZONE_START_POS, type="table") {
+	let dropzoneElement = document.createElement("a-circle");
+
+	dropzoneElement.setAttribute("material", "color:aqua;opacity:0.3");
+	dropzoneElement.setAttribute("radius", type == "table" ? DROPZONE_TABLE_SIZE : DROPZONE_CHAIR_SIZE);
+	dropzoneElement.setAttribute("rotation", "-90 0 0");
+	dropzoneElement.setAttribute("data-interactive", "");
+	dropzoneElement.setAttribute("data-placeable", "");
+	dropzoneElement.setAttribute("measurements", measurementsAttr);
+	dropzoneElement.setAttribute("position", pos2str(position));
+
+	addPlaceEvent(dropzoneElement);
+
+	return dropzoneElement;
+}
+
 
 function speak(text, done=function() {}) {
 	const voices = speechSynthesis.getVoices();
@@ -145,11 +369,24 @@ function speak(text, done=function() {}) {
 	utterance.onend = done;
 }
 
+function aFrameCloneFully(node) {
+	let clonedNode = node.cloneNode();
+
+	const attrs = node.attributes;
+
+	for (let i = 0; i < attrs.length; i++) {
+		clonedNode.setAttribute(attrs[i].name, node.getAttribute(attrs[i].name));
+	}
+
+	return clonedNode;
+}
+
 
 function addPlaceEvent(element, destroy=0) {
 	element.addEventListener("click", function(e) {
 		let holding = document.querySelector(".js--hold");
-		if (holding && destroy == 1) return holding.remove(); // TODO: Place back at starting position
+
+		if (holding && destroy == 1) return replaceTable(holding); // TODO: Place back at starting position
 		const placeEl = e.target;
 		const hasPlaceableAttr = placeEl.getAttribute("data-placeable") == null ? false : true;
 		if (!holding || !hasPlaceableAttr) {
@@ -158,11 +395,15 @@ function addPlaceEvent(element, destroy=0) {
 			return;
 		}
 
+
+		placeEl.setAttribute("measurements", "show", false);
+
 		if (placeEl.querySelector("[data-pickupable]") != null) return console.error("Cannot place there!"); // TODO: add visual feedback for the user
 		const placePos = placeEl.getAttribute("position");
 		const placeRot = placeEl.getAttribute("rotation");
 
-		const clonedNode = holding.cloneNode();
+		// const clonedNode = holding.cloneNode();
+		const clonedNode = aFrameCloneFully(holding);
 
 		clonedNode.setAttribute("measurements", "show", true);
 
@@ -194,11 +435,19 @@ function addPickupEvent(element) {
 		const y = -1;
 		const z = 0;
 
-		let clonedNode = e.target.cloneNode();
+		// let clonedNode = e.target.cloneNode();
+		const clonedNode = aFrameCloneFully(e.target);
 
 		clonedNode.classList.add("js--hold");
 
 		clonedNode.setAttribute("position", "0 -5 0");
+
+		const parent = e.target.parentNode;
+
+
+		if (parent.getAttribute("data-placeable") == null ? false : true) {
+			e.target.parentNode.setAttribute("measurements", "show", true);
+		}
 
 		// let measurementsAttr = clonedNode.getAttribute("measurements");
 		// if (measurementsAttr) {
@@ -206,6 +455,7 @@ function addPickupEvent(element) {
 		// 	clonedNode.setAttribute("measurements", measurementsAttr);
 		// }
 
+		clonedNode.setAttribute("rotation", "0 0 0");
 		clonedNode.setAttribute("measurements", "show", false);
 
 		camera.appendChild(clonedNode);
@@ -240,6 +490,22 @@ AFRAME.registerComponent('pivotpoint', {
 	}
 });
 
+AFRAME.registerComponent("rotate-towards-camera", {
+	init: function() {
+		this.cameraEl = document.querySelector('a-camera');
+	},
+	tick: function() {
+		this.setRotation();
+	},
+	setRotation: function() {
+		let cameraRotation = this.cameraEl.getAttribute("rotation");
+		// toSetRotation.x = oppositeAngle(toSetRotation.x);
+		// toSetRotation.y = oppositeAngle(toSetRotation.y);
+		// toSetRotation.z = oppositeAngle(toSetRotation.z);
+		this.el.setAttribute("rotation", cameraRotation);
+	}
+});
+
 AFRAME.registerComponent('measurements', {
 	schema: {
 		measurements: {type: "string"},
@@ -258,43 +524,67 @@ AFRAME.registerComponent('measurements', {
 		this.zUnit = xyzU[2];
 
 		this.addedMeasurements = false;
-
-		this.el.addEventListener("object3dset", () => {
+		if (this.el.object3D && (this.el.object3D.children && this.el.object3D.children.length > 0)) {
 			this.addMeasurements();
-		});
+		} else {
+			const object3dsetListener = () => {
+				this.addMeasurements();
+			};
+			this.el.addEventListener("object3dset", object3dsetListener, {once: true});
+
+		}
 
 	},
 	update: function() {
 		if (!this.addedMeasurements) return;
 		const xyz = this.data.measurements.split(" ");
 		const xyzU = this.data.units.split(" ");
-		this.xMeasurement = xyz[0];
-		this.yMeasurement = xyz[1];
-		this.zMeasurement = xyz[2];
 
-		this.xUnit = xyzU[0];
-		this.yUnit = xyzU[1];
-		this.zUnit = xyzU[2];
+		if (this.xMeasurement != xyz[0] ||
+				this.yMeasurement != xyz[1] ||
+				this.zMeasurement != xyz[2] ||
+				this.xUnit != xyzU[0] ||
+				this.yUnit != xyzU[1] ||
+				this.zUnit != xyzU[2]) {
 
-		const mt = this.el.querySelector(".measurementText");
-		const mc = this.el.querySelector(".measurementCube");
+			// console.log("SOMETHING OTHER THAN SHOW HAS BEEN CHANGED!!!", this.data);
+			this.xMeasurement = xyz[0];
+			this.yMeasurement = xyz[1];
+			this.zMeasurement = xyz[2];
 
-		if (mt) mt.remove();
-		if (mc) mc.remove();
-		this.addedMeasurements = false;
-		if (this.el.object3D) {
-			this.addMeasurements();
+			this.xUnit = xyzU[0];
+			this.yUnit = xyzU[1];
+			this.zUnit = xyzU[2];
+
+			const mt = this.el.querySelector(".measurementText");
+			const mc = this.el.querySelector(".measurementCube");
+
+			if (mt) mt.remove();
+			if (mc) mc.remove();
+			this.addedMeasurements = false;
+			if (this.el.object3D) {
+				this.addMeasurements();
+			}
 		}
+
+		let textWidth = this.el.querySelector(".measurementText");
+		let cubeWidth = this.el.querySelector(".measurementCube");
+
+		// console.log("[][][][][][][][][][][][][][]", this.data.show, textWidth, cubeWidth);
+
+		textWidth.setAttribute("visible", this.data.show);
+		cubeWidth.setAttribute("visible", this.data.show);
+
 	},
 	addMeasurements: function() {
 		if (this.addedMeasurements) return;
-		console.log("addMeasurements", this.data.show);
+		// console.error("addMeasurements", this.data.show);
 		this.addedMeasurements = true;
 // <a-text value="30" color="white" scale="200 200 200"></a-text>
 // <a-box width="5.74" height="0.1" depth="0.1" scale="57.14 57.14 57.14"></a-box>
 		const sizes = this.getMeshSize();
-		// console.warn(sizes.min, sizes.max, sizes);
 		const size = sizes.getSize();
+		// console.warn(sizes.min, sizes.max, sizes, size);
 
 
 		let textWidth = document.createElement("a-text");
@@ -307,24 +597,47 @@ AFRAME.registerComponent('measurements', {
 
 
 		textWidth.setAttribute("value", this.xMeasurement + this.xUnit);
-		textWidth.setAttribute("color", "#4470AD");
-		textWidth.setAttribute("scale", "200 200 200");
+		textWidth.setAttribute("color", MEASUREMENTS_TEXT_COLOR);
+
+		let scale = this.el.getAttribute("scale");
+		let rotation = this.el.getAttribute("rotation");
+
+		textWidth.setAttribute("scale", 1 / scale.x * 4 + " " + 1 / scale.y * 4 + " " + 1 / scale.z * 4);
 		// console.log("0 " + size.y + " 0");
-		textWidth.setAttribute("position", "0 " + ((size.y+25) * 1) + " 50");
 
 		textWidth.setAttribute("visible", this.data.show);
 
-		cubeWidth.setAttribute("width", size.x);
-		cubeWidth.setAttribute("height", "4");
-		cubeWidth.setAttribute("depth", "4");
-		cubeWidth.setAttribute("color", "#4470AD");
-		// cubeWidth.setAttribute("scale", "1 1 1");
-		cubeWidth.setAttribute("position", "0 " + ((size.y+0.1) * 1) + " 0");
+		// console.warn("[scale]", scale);
 
-		textWidth.setAttribute("rotation", "0 90 0");
-		cubeWidth.setAttribute("rotation", "0 90 0");
+		if (this.el.nodeName == "A-ENTITY" && size.x < 10) {
+			size.x = size.x * (1 / scale.x);
+			size.y = size.y * (1 / scale.z);
+			size.z = size.z * (1 / scale.z);
+		}
+		cubeWidth.setAttribute("width", size.x);
+		cubeWidth.setAttribute("height", 1 / scale.y * 0.1);
+		cubeWidth.setAttribute("depth", 1 / scale.z * 0.1);
+		cubeWidth.setAttribute("color", MEASUREMENTS_LINE_COLOR);
+		// cubeWidth.setAttribute("scale", "1 1 1");
+
+		if (this.el.nodeName == "A-CIRCLE") {
+			textWidth.setAttribute("rotation", "90 0 0");
+			textWidth.setAttribute("position", "0 0 0.5");
+			cubeWidth.setAttribute("rotation", "0 0 0");
+			cubeWidth.setAttribute("position", "0 0 0.01");
+		} else {
+			textWidth.setAttribute("position", "0 " + ((size.y + (1 / scale.y * 0.5)) * 1) + " " + size.z/4);
+			cubeWidth.setAttribute("position", "0 " + ((size.y+0.1) * 1) + " 0");
+			textWidth.setAttribute("rotation", "0 90 0");
+			// textWidth.setAttribute("rotate-towards-camera", "");
+			cubeWidth.setAttribute("rotation", "0 90 0");
+		}
+
+		// textWidth.setAttribute("rotation", rotation.x + " " + (rotation.y + 90) + " " + rotation.z);
+		// cubeWidth.setAttribute("rotation", rotation.x + " " + (rotation.y + 90) + " " + rotation.z);
 
 		cubeWidth.setAttribute("visible", this.data.show);
+		textWidth.setAttribute("visible", this.data.show);
 
 		// console.log(this.el);
 		this.el.appendChild(textWidth);
