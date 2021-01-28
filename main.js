@@ -2,7 +2,7 @@ window.onload = () => {
 	console.log("js connected");
 	const hintsKnop = document.getElementById("hintsKnop--js");
 	const hints = document.getElementById("hintsText--js");
-	const inhoud = ["Kijk naar de poster", "", "item3"];
+	const inhoud = ["Kijk naar de stapjes op de poster", "", "item3"];
 	let index = 0;
 
 	function hintsText(getal) {
@@ -17,7 +17,7 @@ window.onload = () => {
 
 	const introKnop = document.getElementById("introKnop--js");
 	const intro = document.getElementById("introText--js");
-	const inh = ["Welkom bij onze \n rekenles \n\n Druk op de groene knop voor meer", "Wij gaan een klaslokaal inrichten", "Loop nu door de gang \n naar het andere klaslokaal \n en loop naar de juf"];
+	const inh = ["Welkom bij onze \n rekenles \n\n Druk op de groene knop voor meer \n uitleg", "Jij gaat een klaslokaal inrichten", "Succes met de opdrachten \n je wordt nu naar het lokaal \n gebracht"];
 	let ind = 0;
 
 	function introText(getal) {
