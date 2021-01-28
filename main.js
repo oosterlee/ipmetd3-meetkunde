@@ -21,13 +21,12 @@ window.onload = () => {
 	let ind = 0;
 
 	function introText(getal) {
-	    console.log(getal);
 	    intro.setAttribute("value", inh[getal]);
 	}
 
-	introText.onclick = (event) => {
+	introKnop.onclick = (event) => {
 		console.log(ind);
-		introText(ind), ind++;	
+		introText(ind), ind++;
 	}
 }
 
