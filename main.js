@@ -154,6 +154,38 @@ window.addEventListener("load", function() {
 
 });
 
+// const units = {
+// 	"mm": 1,
+// 	"cm": 10,
+// 	"dm": 100,
+// 	"m": 1000,
+// 	"dam": 10000,
+// 	"hm": 100000,
+// 	"km": 1000000,
+// };
+
+const units = {
+	"mm": 1,
+	"cm": 2,
+	"dm": 3,
+	"m": 4,
+	"dam": 5,
+	"hm": 6,
+	"km": 7,
+};
+
+function calculateLength(length, unit, to="cm") {
+	let calculatedLength;
+
+	if (unit == to) return length;
+
+	const diff = units[unit] - units[to];
+
+	calculatedLength = length * (10 ** diff);
+
+	return Number(calculatedLength.toPrecision(1));
+}
+
 
 function addPosArrays(arr1, arr2, addTimes=1) {
 	let tmp = Array.from(arr1);
