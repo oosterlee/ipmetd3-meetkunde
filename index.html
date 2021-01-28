@@ -5,7 +5,7 @@
 	<title>Opdracht Meetkunde</title>
 	<meta name="description" content="A-Frame tests">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-	<!-- <script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script> -->
+	<script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script>
 	<script src="./main.js"></script>
 </head>
 <body>
@@ -13,20 +13,22 @@
 		<a-assets>
 			<a-asset-item id="table" src="./objects/table.glb"></a-asset-item>
 			<a-asset-item id="tree" src="./objects/tree.glb"></a-asset-item>
+			<a-asset-item id="grass" src="./objects/grass.glb"></a-asset-item>
 			<a-asset-item id="digibord-obj" src="./objects/digibord.obj"></a-asset-item>
 			<a-asset-item id="digibord-mtl" src="./objects/digibord.mtl"></a-asset-item>
 
-			<a-asset-item id="classroom_floor" src="./objects/classroom_floor.glb"></a-asset-item>
 			<a-asset-item id="classroom_chair" src="./objects/classroom_chair.glb"></a-asset-item>
 			<a-asset-item id="classroom_table" src="./objects/classroom_table.glb"></a-asset-item>
-			<a-asset-item id="classroom_wall" src="./objects/classroom_wall.glb"></a-asset-item>
+			<a-asset-item id="classroom" src="./objects/classroom.glb"></a-asset-item>
 			<a-asset-item id="classroom_trash_can" src="./objects/classroom_trash_can.glb"></a-asset-item>
 			<a-asset-item id="classroom_bookshelf" src="./objects/classroom_bookshelf.glb"></a-asset-item>
 			<!-- <a-asset-item id="startroom_door" src="./objects/startroom_door.glb"></a-asset-item> -->
 
 			<audio id="kindergeluid" src="./sounds/kindergeluiden.mp3" preload="auto"></audio>
 			<audio id="achtergrondgeluid" src="./sounds/achtergrondmuziek.mp3" preload="auto"></audio>
+
 			<a-img id="classroom_poster" src="./objects/meetkunde_poster.png"></a-img>
+			<img id="background" src="objects/background.jpg" alt="">
 		</a-assets>
 
 		<!-- hintsknop en digibord -->
@@ -87,19 +89,13 @@
 		</a-entity> -->
 
 		<a-entity
-            gltf-model="#classroom_wall"
+            gltf-model="#classroom"
             position="0 -5 0"
 			scale="0.0175 0.0175 0.0175"
 			rotation="0 180 0"
 		>
 		</a-entity>
 
-		<a-entity
-			gltf-model="#classroom_floor"
-			position="0 -5 0"
-			scale="0.1 0.1 0.1"
-		>
-		</a-entity>
 		<a-entity
 			data-interactive
 			gltf-model="#classroom_chair"
@@ -444,10 +440,47 @@
 			position="18 0 -20"
 		>
 		</a-entity>
+
+
+	<!-- OUTSIDE -->
+		<a-sky src="#background"></a-sky>
+
+		<a-entity 
+			id="lightSphere"
+			position="32 126 234"
+			rotation="0 -60 0"
+			geometry="primitive: sphere; radius: 8"
+			material="color: yellow; shader: flat" 
+			light="type: spot"
+		>
+		</a-entity>
+		
+			<a-entity
+			gltf-model="#grass"
+			position="0.5 -5 0.6"
+			scale="0.0175 0.0175 0.0175"
+			rotation="0 180 0"
+		>
+		</a-entity>
+
 		<a-entity
 			gltf-model="#tree"
 			scale="0.03 0.03 0.03"
-			position="-5 -5 -50"
+			position="150 -5 -8"
+		>
+		</a-entity>
+
+		<a-entity
+			gltf-model="#tree"
+			scale="0.03 0.03 0.03"
+			position="126 -5 46"
+		>
+		</a-entity>
+
+		<a-entity
+			gltf-model="#tree"
+			scale="0.03 0.03 0.03"
+			position="230 -5 24"
 		>
 		</a-entity>
 
