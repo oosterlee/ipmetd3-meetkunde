@@ -5,7 +5,7 @@
 	<title>Opdracht Meetkunde</title>
 	<meta name="description" content="A-Frame tests">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-	<!-- <script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script> -->
+	<script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script>
 	<script src="./main.js"></script>
 </head>
 <body>
@@ -21,6 +21,7 @@
 			<a-asset-item id="classroom_table" src="./objects/classroom_table.glb"></a-asset-item>
 			<a-asset-item id="classroom_wall" src="./objects/classroom_wall.glb"></a-asset-item>
 			<a-asset-item id="classroom_trash_can" src="./objects/classroom_trash_can.glb"></a-asset-item>
+			<a-asset-item id="classroom_bookshelf" src="./objects/classroom_bookshelf.glb"></a-asset-item>
 			<!-- <a-asset-item id="startroom_door" src="./objects/startroom_door.glb"></a-asset-item> -->
 
 			<a-img id="classroom_poster" src="./objects/meetkunde_poster.png"></a-img>
@@ -305,6 +306,15 @@
 		>
 		</a-entity>
 
+	<!-- BOOKSHELF-->
+		<a-entity
+			gltf-model="#classroom_bookshelf"
+			position="24.2 -8.2 0"
+			rotation="0 90 0"
+			scale="6 6 6"
+		>
+		</a-entity>	
+
 	<!-- SET OF TABLES IN STARTING ROOM -->
 		<a-entity
 				gltf-model="#table"
@@ -346,10 +356,24 @@
 			position="-122 -5.4 48"
 			scale="1.6 1.6 1.6"
 		>
-		</a-entity>
+		</a-entity>	
 
-	<!-- DIGIBORD STARTING ROOM -->
-	
+	<!-- BOOKSHELF STARTING ROOM -->
+		<a-entity
+			gltf-model="#classroom_bookshelf"
+			position="-123.3 -8.2 26"
+			rotation="0 90 0"
+			scale="6 6 6"
+		>
+		</a-entity>	
+
+		<a-entity
+			gltf-model="#classroom_bookshelf"
+			position="-123.3 -8.2 21"
+			rotation="0 90 0"
+			scale="6 6 6"
+		>
+		</a-entity>	
 
 
 <!-- DROPZONES -->
