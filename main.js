@@ -38,7 +38,6 @@ window.onload = () => {
 					digiBoards[j].components.sound.playSound();
 				}
 
-				loadLevel();
 			}, 10000);
 		});
 	}, 1500);
@@ -69,7 +68,9 @@ window.onload = () => {
 		introText(ind++);
 		if (ind >= inh.length) {
 			speak(inh[ind-1].replace(/\n/g, ""), () => {
-				walkSequence();
+				walkSequence(() => {
+					loadLevel();
+				});
 			});
 		} else {
 			speak(inh[ind-1].replace(/\n/g, ""), () => {
@@ -189,7 +190,7 @@ function walkToElement(el, cb=() => {}) {
 	// att.value = "property: position; easing: linear; dur: "+dur+"; to: " + this.getAttribute('position').x + " 1.6 " + this.getAttribute('position').z;
 }
 
-function walkSequence() {
+function walkSequence(cb=()=>{}) {
 	const camerapositions = document.querySelectorAll(".js--camerapos");
 	if (camerapositions == null) return;
 	let index = 0;
@@ -197,6 +198,7 @@ function walkSequence() {
 		console.log("[walkSequence]", index, camerapositions.length);
 		if (index >= camerapositions.length) {
 			console.log("Done!");
+			cb();
 			return;
 		}
 
@@ -266,8 +268,9 @@ function loadLevel(levelId=currentLevel) {
 	console.log("Loading level: ", lvl.name);
 
 	setTimeout(() => {
-		const toSpeak = (lvl.name + ". " + lvl.description).replace(/\n/, "");
-		speak(lvl.name);
+		const toSpeak = (lvl.name + ". " + lvl.description).replace(/\n/g, "");
+		console.log(toSpeak);
+		speak(toSpeak);
 	}, 1000);
 
 	document.querySelector(".js--levelText").setAttribute("value", lvl.name + "\n" + lvl.description);
