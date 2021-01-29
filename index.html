@@ -24,6 +24,7 @@
 
 			<a-asset-item id="classroom_chair" src="./objects/classroom_chair.glb"></a-asset-item>
 			<a-asset-item id="classroom_table" src="./objects/classroom_table.glb"></a-asset-item>
+			<a-asset-item id="classroom_avatar" src="./objects/classroom_avatar.glb"></a-asset-item>
 			<a-asset-item id="classroom" src="./objects/classroom.glb"></a-asset-item>
 			<a-asset-item id="classroom_trash_can" src="./objects/classroom_trash_can.glb"></a-asset-item>
 			<a-asset-item id="classroom_bookshelf" src="./objects/classroom_bookshelf.glb"></a-asset-item>
@@ -60,8 +61,8 @@
 		</a-entity>
 
 
-		<a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25">
-		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0"> -->
+		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25"> -->
+		<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0">
 			<a-entity
 				animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
 				animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
@@ -118,6 +119,13 @@
 			pivotpoint="0 -100 0"
 			position="-30 -1.65 0"
 			scale="0.0175 0.0175 0.0175"
+		>
+		</a-entity>
+
+		<a-entity
+			gltf-model="#classroom_avatar"
+			position="-28 -3.8 -12"
+			scale="2 2 2"
 		>
 		</a-entity>
 
