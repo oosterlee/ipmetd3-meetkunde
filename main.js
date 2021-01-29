@@ -22,6 +22,26 @@ window.onload = () => {
 	const hintsKnop = document.getElementById("hintsKnop--js");
 	const hints = document.getElementById("hintsText--js");
 	const inhoud = ["Kijk naar de stapjes op de poster", " ", "item3"];
+
+	const startingElements = document.querySelectorAll(".js--start");
+
+	setTimeout(() => {
+		speak("Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even op staan.", () => {
+			setTimeout(() => {
+				for (let i = 0; i < startingElements.length; i++) {
+					startingElements[i].setAttribute("visible", false);
+				}
+
+				document.querySelector("[cursor]").setAttribute("visible", true);
+				let digiBoards = document.querySelectorAll("[src=\"#digibord-obj\"]");
+				for (let j = 0; j < digiBoards.length; j++) {
+					digiBoards[j].components.sound.playSound();
+				}
+
+			}, 10000);
+		});
+	}, 1500);
+
 	let index = 0;
 
 	function hintsText(getal) {

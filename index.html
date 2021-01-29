@@ -30,6 +30,8 @@
 			<a-asset-item id="classroom_bookshelf" src="./objects/classroom_bookshelf.glb"></a-asset-item>
 			<!-- <a-asset-item id="startroom_door" src="./objects/startroom_door.glb"></a-asset-item> -->
 
+			<video id="starting-gif" autoplay loop="true" src="./videos/aframe-help.mp4"></video>
+
 			<audio id="kindergeluid" src="./sounds/kindergeluiden.mp3" preload="auto"></audio>
 			<audio id="achtergrondgeluid" src="./sounds/achtergrondmuziek.mp3" preload="auto"></audio>
 
@@ -43,16 +45,16 @@
 			<a-box id="hintsKnop--js" class="interact--js" color="green" position="-13 -0.5 -31.4" width="3" height="1.5"> 
 				<a-text text="value: Hints" position="0 0 0.6" color="white" scale="3.5 3.5 3.5" align="center"></a-text>
 			</a-box>
-			<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-1 -1 -31.4" scale="1.9 1.9 1.9" sound="src: #achtergrondgeluid; autoplay: true; volume: 0.3 loop: true; refDistance: 5">
+			<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-1 -1 -31.4" scale="1.9 1.9 1.9" sound="src: #achtergrondgeluid; autoplay: false; volume: 0.3 loop: true; refDistance: 5">
 				<a-text id="hintsText--js"  text="value: Druk op de groene knop voor hints" position="-0.1 3 0.1" color="black" scale="5 5 5" width="2.4" align="center"> </a-text>
 			</a-obj-model>
 		</a-entity>
 	<!-- introknop en digibord -->
 		<a-entity>
 			<a-box id="introKnop--js" class="interact--js" color="green" position="-137 -0.3 53.5" width="3" height="1.5"> 
-				<a-text text="value: Start" position="0 0 -0.5" color="white" scale="3.5 3.5 3.5" align="center" rotation="-180 0 -180"></a-text>
+				<a-text text="value: Start" position="0 0 -0.75" color="white" scale="3.5 3.5 3.5" align="center" rotation="-180 0 -180"></a-text>
 			</a-box>
-			<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-148 -1 53.5" rotation="-180 0 -180" scale="1.8 1.8 1.8" sound="src: #kindergeluid; autoplay: true; volume: 1; refDistance: 5">
+			<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-148 -1 53.5" rotation="-180 0 -180" scale="1.8 1.8 1.8" sound="src: #kindergeluid; autoplay: false; volume: 1; refDistance: 5">
 				<a-text id="introText--js" text="value: Druk op de groene knop" position="-0.1 3 0.1" color="black" scale="5 5 5" width="2.4" align="center"></a-text>
 			</a-obj-model>
 		</a-entity>
@@ -80,16 +82,23 @@
 				raycaster="objects: [data-interactive],[data-placeable], .interact--js, [check-btn]"
 
 				position="0 0 -0.5"
+
+				visible="false"
 			>
 				<a-entity geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.012" material="color: black; shader: flat;"></a-entity>
 
 			</a-entity>
+			<a-plane class="js--start" position="0 -0.35 -0.755" width="1.5" height="0.4" color="black"></a-plane>
 			<a-text
-				class="cameratext"
+				class="cameratext js--start"
 				align="center"
-				value="Alles is goed beantwoord!\nJe wordt doorgestuurd naar het volgende level."
-				visible="false"
-				position="0 -0.35 -2"></a-text>
+				value="Om op een knop te klikken\nga je met de ring in het midden\nvan je scherm over een knop heen.\nBlijf hier dan even op staan."
+				visible="true"
+				color="white"
+				position="0 -0.35 -0.75" scale="0.25 0.25 0.25"></a-text>
+
+			<a-video class="js--start" src="#starting-gif" position="0 0.25 -0.75" scale="1.2 0.75 0.75"></a-video>
+			<a-plane class="js--start" position="0 0 -0.76" width="5" height="5"></a-plane>
 			<!-- <a-entity
 				data-interactive
 				gltf-model="#classroom_table"
