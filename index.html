@@ -5,7 +5,7 @@
 	<title>Opdracht Meetkunde</title>
 	<meta name="description" content="A-Frame tests">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-	<script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script>
+<!-- 	<script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script> -->
 	<script src="./main.js"></script>
 </head>
 <body>
@@ -24,15 +24,19 @@
 
 			<a-asset-item id="classroom_chair" src="./objects/classroom_chair.glb"></a-asset-item>
 			<a-asset-item id="classroom_table" src="./objects/classroom_table.glb"></a-asset-item>
+			<a-asset-item id="classroom_avatar" src="./objects/classroom_avatar.glb"></a-asset-item>
 			<a-asset-item id="classroom" src="./objects/classroom.glb"></a-asset-item>
 			<a-asset-item id="classroom_trash_can" src="./objects/classroom_trash_can.glb"></a-asset-item>
 			<a-asset-item id="classroom_bookshelf" src="./objects/classroom_bookshelf.glb"></a-asset-item>
 			<!-- <a-asset-item id="startroom_door" src="./objects/startroom_door.glb"></a-asset-item> -->
 
+			<video id="starting-gif" autoplay loop="true" src="./videos/aframe-help.mp4" preload="auto"></video>
+
 			<audio id="kindergeluid" src="./sounds/kindergeluiden.mp3" preload="auto"></audio>
 			<audio id="achtergrondgeluid" src="./sounds/achtergrondmuziek.mp3" preload="auto"></audio>
 
 			<a-img id="classroom_poster" src="./objects/meetkunde_poster.png"></a-img>
+			<a-img id="classroom_reken_tafels_poster" src="./objects/reken_tafels_poster.png"></a-img>
 			<img id="background" src="objects/background.jpg" alt="">
 		</a-assets>
 
@@ -41,27 +45,30 @@
 			<a-box id="hintsKnop--js" class="interact--js" color="green" position="-13 -0.5 -31.4" width="3" height="1.5"> 
 				<a-text text="value: Hints" position="0 0 0.6" color="white" scale="3.5 3.5 3.5" align="center"></a-text>
 			</a-box>
-			<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-1 -1 -31.4" scale="1.9 1.9 1.9" sound="src: #achtergrondgeluid; autoplay: true; volume: 0.3 loop: true; refDistance: 5">
-				<a-text id="hintsText--js"  text="value: Druk op de groene knop voor hints" position="-0.1 3 0.1" color="black" scale="5 5 5" width="2.4" align="center"> </a-text>
+			<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-1 -1 -31.4" scale="1.9 1.9 1.9" sound="src: #achtergrondgeluid; autoplay: false; volume: 0.3 loop: true; refDistance: 5">
+				<a-text class="js--levelText" value="Hier komt wat te staan van de opdracht" position="-0.1 4.5 0.1" color="black" scale="4 4 4" width="2.4" align="center"></a-text>
+				<a-text id="hintsText--js"  text="value: Druk op de groene knop voor hints" position="-0.1 2 0.1" color="black" scale="5 5 5" width="2.4" align="center"> </a-text>
 			</a-obj-model>
 		</a-entity>
 	<!-- introknop en digibord -->
 		<a-entity>
 			<a-box id="introKnop--js" class="interact--js" color="green" position="-137 -0.3 53.5" width="3" height="1.5"> 
-				<a-text text="value: Start" position="0 0 -0.5" color="white" scale="3.5 3.5 3.5" align="center" rotation="-180 0 -180"></a-text>
+				<a-text text="value: Start" position="0 0 -0.75" color="white" scale="3.5 3.5 3.5" align="center" rotation="-180 0 -180"></a-text>
 			</a-box>
-			<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-148 -1 53.5" rotation="-180 0 -180" scale="1.8 1.8 1.8" sound="src: #kindergeluid; autoplay: true; volume: 1; refDistance: 5">
+			<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-148 -1 53.5" rotation="-180 0 -180" scale="1.8 1.8 1.8" sound="src: #kindergeluid; autoplay: false; volume: 1; refDistance: 5">
 				<a-text id="introText--js" text="value: Druk op de groene knop" position="-0.1 3 0.1" color="black" scale="5 5 5" width="2.4" align="center"></a-text>
 			</a-obj-model>
 		</a-entity>
 
 		<a-entity>
-			<a-obj-model src="#bluebutton-obj" mtl=#bluebutton-mtl position="-7.5 -5 6" scale="4 4 4"></a-obj-model>
+			<a-obj-model src="#bluebutton-obj" mtl=#bluebutton-mtl position="-7.5 -5 6" scale="4 4 4" check-btn>
+				<a-text value="Kijk na" position="0.1 0.8 -0.375" rotation="0 45 0"></a-text>
+			</a-obj-model>
 		</a-entity>
 
 
-		<a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25">
-		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0"> -->
+		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25"> -->
+		<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0">
 			<a-entity
 				animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
 				animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
@@ -69,14 +76,30 @@
 
 				cursor="fuse: true; fuseTimeout: 2000"
 
-				material="color: black; shader: flat"
+				material="color: white; shader: flat"
 
 				geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
 
-				raycaster="objects: [data-interactive],[data-placeable], .interact--js"
+				raycaster="objects: [data-interactive],[data-placeable], .interact--js, [check-btn]"
 
 				position="0 0 -0.5"
-			></a-entity>
+
+				visible="false"
+			>
+				<a-entity geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.012" material="color: black; shader: flat;"></a-entity>
+
+			</a-entity>
+			<a-plane class="js--start" position="0 -0.35 -0.755" width="1.5" height="0.4" color="black"></a-plane>
+			<a-text
+				class="cameratext js--start"
+				align="center"
+				value="Klik op het scherm om te beginnen."
+				visible="true"
+				color="white"
+				position="0 -0.35 -0.75" scale="0.25 0.25 0.25"></a-text>
+
+			<a-video class="js--start" src="#starting-gif" position="0 0.25 -0.75" scale="1.2 0.75 0.75" autoplay="true" loop="true"></a-video>
+			<a-plane class="js--start" position="0 0 -0.76" width="5" height="5"></a-plane>
 			<!-- <a-entity
 				data-interactive
 				gltf-model="#classroom_table"
@@ -121,7 +144,15 @@
 		>
 		</a-entity>
 
+		<a-entity
+			gltf-model="#classroom_avatar"
+			position="-28 -3.8 -12"
+			scale="2 2 2"
+		>
+		</a-entity>
+
 		<a-image src="#classroom_poster" width="16" height="8" position="20 7 -31.4"></a-image>
+		<a-image src="#classroom_reken_tafels_poster" width="14" height="8" position="-127 5 53.5" rotation="0 180 0"></a-image>
 
 
 		<!-- LIGHTS -->
@@ -296,6 +327,12 @@
 		<!-- <a-light type="point" position="0 10 9" intensity="1"></a-light> -->
 
 <!-- CAMERA POSITIONS -->
+		<a-entity class="js--camerapos" position="-144 1.6 25" rotation="0 180 0"></a-entity>
+		<a-entity class="js--camerapos" position="-144 1.6 23" rotation="0 180 0"></a-entity>
+		<a-entity class="js--camerapos" position="-128 1.6 23" rotation="0 180 0"></a-entity>
+		<a-entity class="js--camerapos" position="-128 1.6 -20" rotation="0 180 0"></a-entity>
+		<a-entity class="js--camerapos" position="2 1.6 -20" rotation="0 180 0"></a-entity>
+		<a-entity class="js--camerapos" position="20 1.6 25" rotation="0 180 0"></a-entity>
 
 <!-- SET OF TABLES -->
 		<a-entity class="js--tableholder">

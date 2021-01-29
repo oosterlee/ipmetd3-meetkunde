@@ -14,12 +14,39 @@ const DROPZONE_CHAIR_SIZE = 2.5;
 const MEASUREMENTS_TEXT_COLOR = "white";
 const MEASUREMENTS_LINE_COLOR = "white";
 
+let camera;
+
 
 window.onload = () => {
 	console.log("js connected");
 	const hintsKnop = document.getElementById("hintsKnop--js");
 	const hints = document.getElementById("hintsText--js");
-	const inhoud = ["Kijk naar de stapjes op de poster", " ", "item3"];
+	const inhoud = ["Kijk naar de stapjes op de poster.", "4m = 400cm.", "Kijk naar het aantal 0 wat erbij komt\n per stapje."];
+
+	const startingElements = document.querySelectorAll(".js--start");
+
+	window.addEventListener("click", () => {
+		document.querySelector(".cameratext").setAttribute("value", "Om op een knop te klikken\nga je met de ring in het midden\nvan je scherm over een knop heen.\nBlijf hier dan even op staan.");
+		document.querySelector("a-video.js--start").setAttribute("src", "#starting-gif");
+		document.querySelector("a-video.js--start").play();
+		document.querySelector("a-video.js--start").components.material.material.map.image.play();
+
+		speak("Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even op staan.", () => {
+			setTimeout(() => {
+				for (let i = 0; i < startingElements.length; i++) {
+					startingElements[i].setAttribute("visible", false);
+				}
+
+				document.querySelector("[cursor]").setAttribute("visible", true);
+				let digiBoards = document.querySelectorAll("[src=\"#digibord-obj\"]");
+				for (let j = 0; j < digiBoards.length; j++) {
+					digiBoards[j].components.sound.playSound();
+				}
+
+			}, 10000);
+		});
+	},{once:true});
+
 	let index = 0;
 
 	function hintsText(getal) {
@@ -29,80 +56,48 @@ window.onload = () => {
 
 	hintsKnop.onclick = (event) => {
 		console.log(index);
-		hintsText(index), index++;	
+		if (index >= inhoud.length) {
+			index = 0;
+		}
+		hintsText(index++);	
 	}
 
 	const introKnop = document.getElementById("introKnop--js");
 	const intro = document.getElementById("introText--js");
-	const inh = ["Welkom bij onze \n rekenles \n\n Druk op de groene knop voor meer \n uitleg", "Jij gaat een klaslokaal inrichten", "Succes met de opdrachten \n je wordt nu naar het lokaal \n gebracht"];
+	const inh = ["Welkom bij onze \n rekenles. \n\n We geven je nu wat \n uitleg.", "Jij gaat een klaslokaal inrichten.", "Succes met de opdrachten, \n je wordt nu naar het lokaal \n gebracht"];
 	let ind = 0;
 
 	function introText(getal) {
 	    intro.setAttribute("value", inh[getal]);
 	}
 
-	introKnop.onclick = (event) => {
+	function nextText() {
 		console.log(ind);
-		introText(ind), ind++;
+		introText(ind++);
+		if (ind >= inh.length) {
+			speak(inh[ind-1].replace(/\n/g, ""), () => {
+				walkSequence(() => {
+					loadLevel();
+				});
+			});
+		} else {
+			speak(inh[ind-1].replace(/\n/g, ""), () => {
+				nextText();
+			});
+		}
+
 	}
-}
 
-
-
-
-// window.addEventListener("load", function() {
-// 	console.log("Loaded!");
-
-// 	const camera = document.querySelector(".js--camera");
-
-
-// 	let keyPressed = [];
-
-
-// 	window.addEventListener("keydown", function(e) {
-// 		const i = keyPressed.indexOf(e.key);
-// 		if (i != -1) keyPressed.splice(i, 1);
-// 		keyPressed.push(e.key);
-// 	});
-
-// 	window.addEventListener("keyup", function(e) {
-// 		const i = keyPressed.indexOf(e.key);
-// 		if (i != -1) keyPressed.splice(i, 1);
-// 	});
-
-// 	function handleKeys() {
-// 		if (keyPressed.length > 0) {
-// 			const cp = camera.getAttribute("position");
-// 				if(keyPressed.includes("Shift")) {
-// 					camera.setAttribute("position", cp.x + " " + (cp.y-0.2) + " " + cp.z);
-// 				}
-// 				if(keyPressed.includes(" ")) {
-// 					camera.setAttribute("position", cp.x + " " + (cp.y+0.2) + " " + cp.z);
-// 				}
-// 				// if(keyPressed.includes("w")) {
-// 				// 	camera.setAttribute("position", cp.x + " " + cp.y + " " + (cp.z-0.2));
-// 				// }
-// 				// if(keyPressed.includes("a")) {
-// 				// 	camera.setAttribute("position", (cp.x-0.2) + " " + cp.y + " " + cp.z);
-// 				// }
-// 				// if(keyPressed.includes("s")) {
-// 				// 	camera.setAttribute("position", cp.x + " " + cp.y + " " + (cp.z+0.2));
-// 				// }
-// 				// if(keyPressed.includes("d")) {
-// 				// 	camera.setAttribute("position", (cp.x+0.2) + " " + cp.y + " " + cp.z);
-// 				// }
-
-// 		}
-// 		window.requestAnimationFrame(handleKeys);
-// 	}
-
-// 	window.requestAnimationFrame(handleKeys);
-// });
-
+	introKnop.onclick = (event) => {
+		nextText();
+		introKnop.remove();
+	};
+};
 
 const levels = [
 	{
 		name: "Level 1",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nop de tafel te klikken.",
 		tables: ["measurements: 3 3 3; units: cm cm cm",
 				"measurements: 300 300 300; units: cm cm cm",
 				"measurements: 30 30 30; units: cm cm cm"],
@@ -115,6 +110,7 @@ const levels = [
 	},
 	{
 		name: "Level 2",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nop de tafel te klikken.",
 		tables: ["measurements: 30 30 30; units: cm cm cm",
 				"measurements: 300 300 300; units: cm cm cm",
 				"measurements: 3000 3000 3000; units: cm cm cm"],
@@ -123,7 +119,7 @@ const levels = [
 			tables: ["measurements: 0.3 0.3 0.3; units: m m m"],
 			chairs: []
 		},
-		points: 10,
+		points: 15,
 	},
 ];
 
@@ -131,11 +127,13 @@ let currentLevel = 0;
 
 
 window.addEventListener("load", function() {
-	const camera = document.querySelector(".js--camera");
+	camera = document.querySelector(".js--camera");
 
 	const interactiveEl = document.querySelectorAll("[data-interactive]");
 	const pickupableNodes = document.querySelectorAll("[data-pickupable]");
 	const placeableNodes = document.querySelectorAll("[data-placeable]");
+
+	// walkSequence();
 
 	// for (let i = 0; i < interactiveEl.length; i++) {
 	// 	const pickupable = interactiveEl[i].getAttribute("data-pickupable");
@@ -167,10 +165,57 @@ window.addEventListener("load", function() {
 	// 	// camera.appendChild(e.target);
 	// });
 
-	loadLevel();
 
 
 });
+
+function getDistance(obj1, obj2) {
+  const pos1 = obj1.getAttribute("position");
+  const pos2 = obj2.getAttribute("position");
+
+  console.log(obj1, obj2);
+
+  let xLen = pos1.x;
+  let zLen = pos1.z;
+  let xLenTo = pos2.x;
+  let zLenTo = pos2.z;
+
+  console.log(xLen, zLen, xLenTo, zLenTo);
+
+  const distance = Math.sqrt(Math.pow(xLen - xLenTo, 2) + Math.pow(zLen - zLenTo, 2));
+  return distance;
+}
+
+function walkToElement(el, cb=() => {}) {
+	const distance = getDistance(camera, el);
+	let elPos = el.getAttribute("position");
+	elPos = elPos.x + " " + elPos.y + " " + elPos.z;
+	const dur = 125 * distance;
+	console.log(distance, dur);
+	camera.setAttribute("animation", "property: position; easing: linear; to: " + elPos + "; dur: " + dur);
+
+	setTimeout(cb, dur-10);
+	// att.value = "property: position; easing: linear; dur: "+dur+"; to: " + this.getAttribute('position').x + " 1.6 " + this.getAttribute('position').z;
+}
+
+function walkSequence(cb=()=>{}) {
+	const camerapositions = document.querySelectorAll(".js--camerapos");
+	if (camerapositions == null) return;
+	let index = 0;
+	const callback = () => {
+		console.log("[walkSequence]", index, camerapositions.length);
+		if (index >= camerapositions.length) {
+			console.log("Done!");
+			cb();
+			return;
+		}
+
+		walkToElement(camerapositions[index++], callback);
+	};
+	walkToElement(camerapositions[index++], callback);
+}
+
+
 
 // const units = {
 // 	"mm": 1,
@@ -229,6 +274,14 @@ function loadLevel(levelId=currentLevel) {
 
 
 	console.log("Loading level: ", lvl.name);
+
+	setTimeout(() => {
+		const toSpeak = (lvl.name + ". " + lvl.description).replace(/\n/g, "");
+		console.log(toSpeak);
+		speak(toSpeak);
+	}, 1000);
+
+	document.querySelector(".js--levelText").setAttribute("value", lvl.name + "\n" + lvl.description);
 
 	placeTables(lvl.tables);
 	placeChairs(lvl.chairs);
@@ -397,6 +450,7 @@ function addPlaceEvent(element, destroy=0) {
 
 
 		placeEl.setAttribute("measurements", "show", false);
+		placeEl.setAttribute("material", "color", "aqua");
 
 		if (placeEl.querySelector("[data-pickupable]") != null) return console.error("Cannot place there!"); // TODO: add visual feedback for the user
 		const placePos = placeEl.getAttribute("position");
@@ -447,6 +501,7 @@ function addPickupEvent(element) {
 
 		if (parent.getAttribute("data-placeable") == null ? false : true) {
 			e.target.parentNode.setAttribute("measurements", "show", true);
+			e.target.parentNode.setAttribute("material", "color", "aqua");
 		}
 
 		// let measurementsAttr = clonedNode.getAttribute("measurements");
@@ -662,6 +717,77 @@ AFRAME.registerComponent("make-transparent", {
 					node.children[i].material.opacity = 0.2;
 				}
 			});
+		});
+	}
+});
+
+AFRAME.registerComponent("check-btn", {
+	init: function() {
+		this.el.addEventListener("click", () => {
+			let correct = true;
+			const level = getCurrentLevel();
+			const dropzones = document.querySelectorAll(".js--dropzoneholder > a-circle");
+
+			for (let i = 0; i < dropzones.length; i++) {
+				let dropzoneCorrect = true;
+				let dropzone = dropzones[i];
+				let tablechair = dropzone.querySelector("[data-pickupable]");
+
+				if (tablechair == null) {
+					// dropzone.setAttribute("material", "color", "red");
+					dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #FF0000; dur: 2000;");
+					correct = false;
+				} else {
+					const measurementsAttr = tablechair.getAttribute("measurements");
+					const measurements = measurementsAttr.measurements.split(" ");
+					const units = measurementsAttr.units.split(" ");
+
+					const dropMeasurementsAttr = dropzone.getAttribute("measurements");
+					const dropMeasurements = dropMeasurementsAttr.measurements.split(" ");
+					const dropUnits = dropMeasurementsAttr.units.split(" ");
+
+					for (let j = 0; j < 3; j++) {
+						let cal = calculateLength(measurements[j], units[j], dropUnits[j]);
+
+						if (cal != dropMeasurements[j]) {
+							console.warn("NOT EQUAL TO", cal, dropMeasurements);
+							dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #FF0000; dur: 2000;");
+							correct = false;
+							dropzoneCorrect = false;
+							break;
+						}
+					}
+					if (dropzoneCorrect) {
+						dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #00FF00; dur: 2000;");
+					}
+
+				}
+
+			}
+
+			let cameratext = document.querySelector(".cameratext");
+			if (correct) {
+
+				setTimeout(() => {
+					speak("Alles is goed beantwoord! Je wordt doorgestuurd naar het volgende level.", () => {
+						cameratext.setAttribute("visible", false);
+						loadLevel(currentLevel+1);
+					});
+
+					cameratext.setAttribute("visible", true);
+					cameratext.setAttribute("value", "Alles is goed beantwoord!\nJe wordt doorgestuurd naar het volgende level.");
+					console.log("EVERY TABLE IS IS THE CORRECT SPOT!");
+				}, 2000);
+			} else {
+				setTimeout(() => {
+					speak("Helaas, je hebt nog ergens een foutje. Je kunt het!", () => {
+						cameratext.setAttribute("visible", false);
+					});
+
+					cameratext.setAttribute("visible", true);
+					cameratext.setAttribute("value", "Helaas, je hebt nog ergens een foutje.\nJe kunt het!");
+				}, 2000);
+			}
 		});
 	}
 });
