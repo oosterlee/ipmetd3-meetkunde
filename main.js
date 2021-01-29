@@ -21,7 +21,7 @@ window.onload = () => {
 	console.log("js connected");
 	const hintsKnop = document.getElementById("hintsKnop--js");
 	const hints = document.getElementById("hintsText--js");
-	const inhoud = ["Kijk naar de stapjes op de poster", " ", "item3"];
+	const inhoud = ["Kijk naar de stapjes op de poster.", "4m = 400cm.", "Kijk naar het aantal 0 wat erbij komt\n per stapje."];
 
 	const startingElements = document.querySelectorAll(".js--start");
 
