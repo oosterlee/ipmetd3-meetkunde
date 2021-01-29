@@ -38,6 +38,7 @@ window.onload = () => {
 					digiBoards[j].components.sound.playSound();
 				}
 
+				loadLevel();
 			}, 10000);
 		});
 	}, 1500);
@@ -84,63 +85,10 @@ window.onload = () => {
 	};
 };
 
-
-
-
-// window.addEventListener("load", function() {
-// 	console.log("Loaded!");
-
-// 	const camera = document.querySelector(".js--camera");
-
-
-// 	let keyPressed = [];
-
-
-// 	window.addEventListener("keydown", function(e) {
-// 		const i = keyPressed.indexOf(e.key);
-// 		if (i != -1) keyPressed.splice(i, 1);
-// 		keyPressed.push(e.key);
-// 	});
-
-// 	window.addEventListener("keyup", function(e) {
-// 		const i = keyPressed.indexOf(e.key);
-// 		if (i != -1) keyPressed.splice(i, 1);
-// 	});
-
-// 	function handleKeys() {
-// 		if (keyPressed.length > 0) {
-// 			const cp = camera.getAttribute("position");
-// 				if(keyPressed.includes("Shift")) {
-// 					camera.setAttribute("position", cp.x + " " + (cp.y-0.2) + " " + cp.z);
-// 				}
-// 				if(keyPressed.includes(" ")) {
-// 					camera.setAttribute("position", cp.x + " " + (cp.y+0.2) + " " + cp.z);
-// 				}
-// 				// if(keyPressed.includes("w")) {
-// 				// 	camera.setAttribute("position", cp.x + " " + cp.y + " " + (cp.z-0.2));
-// 				// }
-// 				// if(keyPressed.includes("a")) {
-// 				// 	camera.setAttribute("position", (cp.x-0.2) + " " + cp.y + " " + cp.z);
-// 				// }
-// 				// if(keyPressed.includes("s")) {
-// 				// 	camera.setAttribute("position", cp.x + " " + cp.y + " " + (cp.z+0.2));
-// 				// }
-// 				// if(keyPressed.includes("d")) {
-// 				// 	camera.setAttribute("position", (cp.x+0.2) + " " + cp.y + " " + cp.z);
-// 				// }
-
-// 		}
-// 		window.requestAnimationFrame(handleKeys);
-// 	}
-
-// 	window.requestAnimationFrame(handleKeys);
-// });
-
-
 const levels = [
 	{
 		name: "Level 1",
-		description: "Zet de tafel op de goede positie.",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nop de tafel te klikken.",
 		tables: ["measurements: 3 3 3; units: cm cm cm",
 				"measurements: 300 300 300; units: cm cm cm",
 				"measurements: 30 30 30; units: cm cm cm"],
@@ -153,7 +101,7 @@ const levels = [
 	},
 	{
 		name: "Level 2",
-		description: "Zet de tafel op de goede positie.",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nop de tafel te klikken.",
 		tables: ["measurements: 30 30 30; units: cm cm cm",
 				"measurements: 300 300 300; units: cm cm cm",
 				"measurements: 3000 3000 3000; units: cm cm cm"],
@@ -208,7 +156,6 @@ window.addEventListener("load", function() {
 	// 	// camera.appendChild(e.target);
 	// });
 
-	loadLevel();
 
 
 });
@@ -317,6 +264,13 @@ function loadLevel(levelId=currentLevel) {
 
 
 	console.log("Loading level: ", lvl.name);
+
+	setTimeout(() => {
+		const toSpeak = (lvl.name + ". " + lvl.description).replace(/\n/, "");
+		speak(lvl.name);
+	}, 1000);
+
+	document.querySelector(".js--levelText").setAttribute("value", lvl.name + "\n" + lvl.description);
 
 	placeTables(lvl.tables);
 	placeChairs(lvl.chairs);
