@@ -63,8 +63,8 @@
 		</a-entity>
 
 
-		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25"> -->
-		<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0">
+		<a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25">
+		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0"> -->
 			<a-entity
 				animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
 				animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
@@ -81,7 +81,14 @@
 				position="0 0 -0.5"
 			>
 				<a-entity geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.012" material="color: black; shader: flat;"></a-entity>
+
 			</a-entity>
+			<a-text
+				class="cameratext"
+				align="center"
+				value="Alles is goed beantwoord!\nJe wordt doorgestuurd naar het volgende level."
+				visible="false"
+				position="0 -0.35 -2"></a-text>
 			<!-- <a-entity
 				data-interactive
 				gltf-model="#classroom_table"
