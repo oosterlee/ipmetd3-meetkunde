@@ -397,6 +397,7 @@ function addPlaceEvent(element, destroy=0) {
 
 
 		placeEl.setAttribute("measurements", "show", false);
+		placeEl.setAttribute("material", "color", "aqua");
 
 		if (placeEl.querySelector("[data-pickupable]") != null) return console.error("Cannot place there!"); // TODO: add visual feedback for the user
 		const placePos = placeEl.getAttribute("position");
@@ -447,6 +448,7 @@ function addPickupEvent(element) {
 
 		if (parent.getAttribute("data-placeable") == null ? false : true) {
 			e.target.parentNode.setAttribute("measurements", "show", true);
+			e.target.parentNode.setAttribute("material", "color", "aqua");
 		}
 
 		// let measurementsAttr = clonedNode.getAttribute("measurements");
@@ -669,7 +671,70 @@ AFRAME.registerComponent("make-transparent", {
 AFRAME.registerComponent("check-btn", {
 	init: function() {
 		this.el.addEventListener("click", () => {
-			console.log("Element clicked!!!");
+			let correct = false;
+			const level = getCurrentLevel();
+			const dropzones = document.querySelectorAll(".js--dropzoneholder > a-circle");
+
+			for (let i = 0; i < dropzones.length; i++) {
+				let dropzone = dropzones[i];
+				let tablechair = dropzone.querySelector("[data-pickupable]");
+
+				if (tablechair == null) {
+					// dropzone.setAttribute("material", "color", "red");
+					dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #FF0000; dur: 2000;");
+				} else {
+					const measurementsAttr = tablechair.getAttribute("measurements");
+					const measurements = measurementsAttr.measurements.split(" ");
+					const units = measurementsAttr.units.split(" ");
+
+					const dropMeasurementsAttr = dropzone.getAttribute("measurements");
+					const dropMeasurements = dropMeasurementsAttr.measurements.split(" ");
+					const dropUnits = dropMeasurementsAttr.units.split(" ");
+
+					console.log(tablechair);
+					console.log(measurements, units);
+
+					for (let j = 0; j < 3; j++) {
+						let cal = calculateLength(measurements[j], units[j], dropUnits[j]);
+
+						if (cal != dropMeasurements[j]) {
+							console.warn("NOT EQUAL TO", cal, dropMeasurements);
+							dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #FF0000; dur: 2000;");
+							correct = false;
+							break;
+						}
+					}
+
+					correct = true;
+
+					dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #00FF00; dur: 2000;");
+				}
+
+			}
+
+			let cameratext = document.querySelector(".cameratext");
+			if (correct) {
+
+				setTimeout(() => {
+					speak("Alles is goed beantwoord! Je wordt doorgestuurd naar het volgende level.", () => {
+						cameratext.setAttribute("visible", false);
+						loadLevel(currentLevel+1);
+					});
+
+					cameratext.setAttribute("visible", true);
+					cameratext.setAttribute("value", "Alles is goed beantwoord!\nJe wordt doorgestuurd naar het volgende level.");
+					console.log("EVERY TABLE IS IS THE CORRECT SPOT!");
+				}, 2000);
+			} else {
+				setTimeout(() => {
+					speak("Helaas, je hebt nog ergens een foutje. Je kunt het!", () => {
+						cameratext.setAttribute("visible", false);
+					});
+
+					cameratext.setAttribute("visible", true);
+					cameratext.setAttribute("value", "Helaas, je hebt nog ergens een foutje.\nJe kunt het!");
+				}, 2000);
+			}
 		});
 	}
 });
