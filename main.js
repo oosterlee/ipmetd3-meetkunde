@@ -25,7 +25,12 @@ window.onload = () => {
 
 	const startingElements = document.querySelectorAll(".js--start");
 
-	setTimeout(() => {
+	window.addEventListener("click", () => {
+		document.querySelector(".cameratext").setAttribute("value", "Om op een knop te klikken\nga je met de ring in het midden\nvan je scherm over een knop heen.\nBlijf hier dan even op staan.");
+		document.querySelector("a-video.js--start").setAttribute("src", "#starting-gif");
+		document.querySelector("a-video.js--start").play();
+		document.querySelector("a-video.js--start").components.material.material.map.image.play();
+
 		speak("Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even op staan.", () => {
 			setTimeout(() => {
 				for (let i = 0; i < startingElements.length; i++) {
@@ -40,7 +45,7 @@ window.onload = () => {
 
 			}, 10000);
 		});
-	}, 1500);
+	},{once:true});
 
 	let index = 0;
 
@@ -719,17 +724,19 @@ AFRAME.registerComponent("make-transparent", {
 AFRAME.registerComponent("check-btn", {
 	init: function() {
 		this.el.addEventListener("click", () => {
-			let correct = false;
+			let correct = true;
 			const level = getCurrentLevel();
 			const dropzones = document.querySelectorAll(".js--dropzoneholder > a-circle");
 
 			for (let i = 0; i < dropzones.length; i++) {
+				let dropzoneCorrect = true;
 				let dropzone = dropzones[i];
 				let tablechair = dropzone.querySelector("[data-pickupable]");
 
 				if (tablechair == null) {
 					// dropzone.setAttribute("material", "color", "red");
 					dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #FF0000; dur: 2000;");
+					correct = false;
 				} else {
 					const measurementsAttr = tablechair.getAttribute("measurements");
 					const measurements = measurementsAttr.measurements.split(" ");
@@ -739,9 +746,6 @@ AFRAME.registerComponent("check-btn", {
 					const dropMeasurements = dropMeasurementsAttr.measurements.split(" ");
 					const dropUnits = dropMeasurementsAttr.units.split(" ");
 
-					console.log(tablechair);
-					console.log(measurements, units);
-
 					for (let j = 0; j < 3; j++) {
 						let cal = calculateLength(measurements[j], units[j], dropUnits[j]);
 
@@ -749,13 +753,14 @@ AFRAME.registerComponent("check-btn", {
 							console.warn("NOT EQUAL TO", cal, dropMeasurements);
 							dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #FF0000; dur: 2000;");
 							correct = false;
+							dropzoneCorrect = false;
 							break;
 						}
 					}
+					if (dropzoneCorrect) {
+						dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #00FF00; dur: 2000;");
+					}
 
-					correct = true;
-
-					dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #00FF00; dur: 2000;");
 				}
 
 			}
