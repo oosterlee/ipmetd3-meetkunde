@@ -108,10 +108,7 @@ const levels = [
 				"measurements: 30 30 30; units: cm cm cm"],
 		chairs: [],
 		dropzones: {
-			tables: ["measurements: 300 300 300; units: mm mm mm",
-			"measurements: 300 300 300; units: mm mm mm",
-			"measurements: 300 300 300; units: mm mm mm",
-			"measurements: 300 300 300; units: mm mm mm"],
+			tables: ["measurements: 300 300 300; units: mm mm mm"],
 			chairs: []
 		},
 		points: 10,
