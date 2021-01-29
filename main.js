@@ -8,8 +8,8 @@ const DROPZONE_INCREMENT = [10, 0, 0];
 const DROPZONE_TABLE_SIZE = 3.5;
 const DROPZONE_CHAIR_SIZE = 2.5;
 
-const DROPZONE_TABLE_START_POS = [];
-const DROPZONE_CHAIR_START_POS = [];
+// const DROPZONE_TABLE_START_POS = [];
+// const DROPZONE_CHAIR_START_POS = [];
 
 const MEASUREMENTS_TEXT_COLOR = "white";
 const MEASUREMENTS_LINE_COLOR = "white";
@@ -648,5 +648,20 @@ AFRAME.registerComponent('measurements', {
 			return new THREE.Box3().setFromObject(obj);
 		}
 		return new THREE.Box3().setFromObject(this.el.object3D.children[0]);
+	}
+});
+
+AFRAME.registerComponent("make-transparent", {
+	init: function() {
+		this.el.addEventListener("object3dset", () => {
+			let mesh = this.el.getObject3D("mesh");
+
+			mesh.traverse(node => {
+				for (let i = 0; i < node.children.length; i++) {
+					node.children[i].material.transparent = true;
+					node.children[i].material.opacity = 0.2;
+				}
+			});
+		});
 	}
 });

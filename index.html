@@ -19,6 +19,8 @@
       
 			<a-asset-item id="bluebutton-obj" src="./objects/bluebutton.obj"></a-asset-item>
 			<a-asset-item id="bluebutton-mtl" src="./objects/bluebutton.mtl"></a-asset-item>
+			<!-- <a-asset-item id="classroom_floor" src="./objects/classroom_floor.glb"></a-asset-item> -->
+			<a-asset-item id="classroom_windows" src="./objects/classroom_windows.glb"></a-asset-item>
 
 			<a-asset-item id="classroom_chair" src="./objects/classroom_chair.glb"></a-asset-item>
 			<a-asset-item id="classroom_table" src="./objects/classroom_table.glb"></a-asset-item>
@@ -98,6 +100,15 @@
             position="0 -5 0"
 			scale="0.0175 0.0175 0.0175"
 			rotation="0 180 0"
+		>
+		</a-entity>
+
+		<a-entity
+            gltf-model="#classroom_windows"
+            position="0 -5 0"
+			scale="0.0175 0.0175 0.0175"
+			rotation="0 180 0"
+			make-transparent
 		>
 		</a-entity>
 
