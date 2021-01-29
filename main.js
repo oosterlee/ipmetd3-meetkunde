@@ -52,7 +52,10 @@ window.onload = () => {
 
 	hintsKnop.onclick = (event) => {
 		console.log(index);
-		hintsText(index), index++;	
+		if (index >= inhoud.length) {
+			index = 0;
+		}
+		hintsText(index++);	
 	}
 
 	const introKnop = document.getElementById("introKnop--js");
