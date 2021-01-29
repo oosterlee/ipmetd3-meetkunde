@@ -36,14 +36,14 @@ window.onload = () => {
 
 	const introKnop = document.getElementById("introKnop--js");
 	const intro = document.getElementById("introText--js");
-	const inh = ["Welkom bij onze \n rekenles. \n\n Druk op de groene knop voor meer \n uitleg.", "Jij gaat een klaslokaal inrichten.", "Succes met de opdrachten, \n je wordt nu naar het lokaal \n gebracht"];
+	const inh = ["Welkom bij onze \n rekenles. \n\n We geven je nu wat \n uitleg.", "Jij gaat een klaslokaal inrichten.", "Succes met de opdrachten, \n je wordt nu naar het lokaal \n gebracht"];
 	let ind = 0;
 
 	function introText(getal) {
 	    intro.setAttribute("value", inh[getal]);
 	}
 
-	introKnop.onclick = (event) => {
+	function nextText() {
 		console.log(ind);
 		introText(ind++);
 		if (ind >= inh.length) {
@@ -51,8 +51,16 @@ window.onload = () => {
 				walkSequence();
 			});
 		} else {
-			speak(inh[ind-1].replace(/\n/g, ""));
+			speak(inh[ind-1].replace(/\n/g, ""), () => {
+				nextText();
+			});
 		}
+
+	}
+
+	introKnop.onclick = (event) => {
+		nextText();
+		introKnop.remove();
 	};
 };
 
@@ -112,6 +120,7 @@ window.onload = () => {
 const levels = [
 	{
 		name: "Level 1",
+		description: "Zet de tafel op de goede positie.",
 		tables: ["measurements: 3 3 3; units: cm cm cm",
 				"measurements: 300 300 300; units: cm cm cm",
 				"measurements: 30 30 30; units: cm cm cm"],
@@ -124,6 +133,7 @@ const levels = [
 	},
 	{
 		name: "Level 2",
+		description: "Zet de tafel op de goede positie.",
 		tables: ["measurements: 30 30 30; units: cm cm cm",
 				"measurements: 300 300 300; units: cm cm cm",
 				"measurements: 3000 3000 3000; units: cm cm cm"],
@@ -132,7 +142,7 @@ const levels = [
 			tables: ["measurements: 0.3 0.3 0.3; units: m m m"],
 			chairs: []
 		},
-		points: 10,
+		points: 15,
 	},
 ];
 
