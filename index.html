@@ -5,7 +5,7 @@
 	<title>Opdracht Meetkunde</title>
 	<meta name="description" content="A-Frame tests">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-	<script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script>
+	<!-- <script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script> -->
 	<script src="./main.js"></script>
 </head>
 <body>
@@ -56,7 +56,9 @@
 		</a-entity>
 
 		<a-entity>
-			<a-obj-model src="#bluebutton-obj" mtl=#bluebutton-mtl position="-7.5 -5 6" scale="4 4 4"></a-obj-model>
+			<a-obj-model src="#bluebutton-obj" mtl=#bluebutton-mtl position="-7.5 -5 6" scale="4 4 4" check-btn>
+				<a-text value="Kijk na" position="0.1 0.8 -0.375" rotation="0 45 0"></a-text>
+			</a-obj-model>
 		</a-entity>
 
 
@@ -69,14 +71,16 @@
 
 				cursor="fuse: true; fuseTimeout: 2000"
 
-				material="color: black; shader: flat"
+				material="color: white; shader: flat"
 
 				geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
 
-				raycaster="objects: [data-interactive],[data-placeable], .interact--js"
+				raycaster="objects: [data-interactive],[data-placeable], .interact--js, [check-btn]"
 
 				position="0 0 -0.5"
-			></a-entity>
+			>
+				<a-entity geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.012" material="color: black; shader: flat;"></a-entity>
+			</a-entity>
 			<!-- <a-entity
 				data-interactive
 				gltf-model="#classroom_table"
