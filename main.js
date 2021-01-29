@@ -665,3 +665,11 @@ AFRAME.registerComponent("make-transparent", {
 		});
 	}
 });
+
+AFRAME.registerComponent("check-btn", {
+	init: function() {
+		this.el.addEventListener("click", () => {
+			console.log("Element clicked!!!");
+		});
+	}
+});
