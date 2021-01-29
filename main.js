@@ -14,6 +14,8 @@ const DROPZONE_CHAIR_SIZE = 2.5;
 const MEASUREMENTS_TEXT_COLOR = "white";
 const MEASUREMENTS_LINE_COLOR = "white";
 
+let camera;
+
 
 window.onload = () => {
 	console.log("js connected");
@@ -34,7 +36,7 @@ window.onload = () => {
 
 	const introKnop = document.getElementById("introKnop--js");
 	const intro = document.getElementById("introText--js");
-	const inh = ["Welkom bij onze \n rekenles \n\n Druk op de groene knop voor meer \n uitleg", "Jij gaat een klaslokaal inrichten", "Succes met de opdrachten \n je wordt nu naar het lokaal \n gebracht"];
+	const inh = ["Welkom bij onze \n rekenles. \n\n Druk op de groene knop voor meer \n uitleg.", "Jij gaat een klaslokaal inrichten.", "Succes met de opdrachten, \n je wordt nu naar het lokaal \n gebracht"];
 	let ind = 0;
 
 	function introText(getal) {
@@ -43,9 +45,16 @@ window.onload = () => {
 
 	introKnop.onclick = (event) => {
 		console.log(ind);
-		introText(ind), ind++;
-	}
-}
+		introText(ind++);
+		if (ind >= inh.length) {
+			speak(inh[ind-1].replace(/\n/g, ""), () => {
+				walkSequence();
+			});
+		} else {
+			speak(inh[ind-1].replace(/\n/g, ""));
+		}
+	};
+};
 
 
 
@@ -131,11 +140,13 @@ let currentLevel = 0;
 
 
 window.addEventListener("load", function() {
-	const camera = document.querySelector(".js--camera");
+	camera = document.querySelector(".js--camera");
 
 	const interactiveEl = document.querySelectorAll("[data-interactive]");
 	const pickupableNodes = document.querySelectorAll("[data-pickupable]");
 	const placeableNodes = document.querySelectorAll("[data-placeable]");
+
+	// walkSequence();
 
 	// for (let i = 0; i < interactiveEl.length; i++) {
 	// 	const pickupable = interactiveEl[i].getAttribute("data-pickupable");
@@ -171,6 +182,53 @@ window.addEventListener("load", function() {
 
 
 });
+
+function getDistance(obj1, obj2) {
+  const pos1 = obj1.getAttribute("position");
+  const pos2 = obj2.getAttribute("position");
+
+  console.log(obj1, obj2);
+
+  let xLen = pos1.x;
+  let zLen = pos1.z;
+  let xLenTo = pos2.x;
+  let zLenTo = pos2.z;
+
+  console.log(xLen, zLen, xLenTo, zLenTo);
+
+  const distance = Math.sqrt(Math.pow(xLen - xLenTo, 2) + Math.pow(zLen - zLenTo, 2));
+  return distance;
+}
+
+function walkToElement(el, cb=() => {}) {
+	const distance = getDistance(camera, el);
+	let elPos = el.getAttribute("position");
+	elPos = elPos.x + " " + elPos.y + " " + elPos.z;
+	const dur = 125 * distance;
+	console.log(distance, dur);
+	camera.setAttribute("animation", "property: position; easing: linear; to: " + elPos + "; dur: " + dur);
+
+	setTimeout(cb, dur-10);
+	// att.value = "property: position; easing: linear; dur: "+dur+"; to: " + this.getAttribute('position').x + " 1.6 " + this.getAttribute('position').z;
+}
+
+function walkSequence() {
+	const camerapositions = document.querySelectorAll(".js--camerapos");
+	if (camerapositions == null) return;
+	let index = 0;
+	const callback = () => {
+		console.log("[walkSequence]", index, camerapositions.length);
+		if (index >= camerapositions.length) {
+			console.log("Done!");
+			return;
+		}
+
+		walkToElement(camerapositions[index++], callback);
+	};
+	walkToElement(camerapositions[index++], callback);
+}
+
+
 
 // const units = {
 // 	"mm": 1,
