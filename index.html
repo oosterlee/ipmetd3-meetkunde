@@ -4,11 +4,57 @@
 	<meta charset="utf-8">
 	<title>Opdracht Meetkunde</title>
 	<meta name="description" content="A-Frame tests">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 <!-- 	<script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script> -->
 	<script src="./main.js"></script>
+	<style>
+		.intro {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			z-index: 99;
+			background: #bdbdbd;
+		}
+
+		.intro video {
+			position: absolute;
+			background: white;
+			width: 80%;
+			top: 10%;
+			left: 50%;
+			transform: translate(-50%, -10%);
+		}
+
+		.text {
+			position: absolute;
+			bottom: 7.5%;
+			left: 50%;
+			width: 70%;
+			height: 25%;
+			background: black;
+			transform: translateX(-50%);
+			text-align: center;
+		}
+
+		.text p {
+			color: white;
+			font-size: 4vh;
+		}
+
+		@media screen and (orientation:portrait) { .text p {font-size: 2.5vh;}  }
+		/*@media only screen and (max-width: 998px) { .text p {font-size: 1.6rem;} }*/
+	</style>
 </head>
 <body>
+	<section class="intro">
+		<video src="./videos/aframe-help.mp4" loop="true"></video>
+		<section class="text">
+			<p>Klik op het scherm om te beginnen</p>
+		</section>
+	</section>
 	<a-scene background="color: #ECECEC" loading-screen="dotsColor: red; backgroundColor: black">
 		<a-assets>
 			<a-asset-item id="table" src="./objects/table.glb"></a-asset-item>
@@ -30,7 +76,7 @@
 			<a-asset-item id="classroom_bookshelf" src="./objects/classroom_bookshelf.glb"></a-asset-item>
 			<!-- <a-asset-item id="startroom_door" src="./objects/startroom_door.glb"></a-asset-item> -->
 
-			<video id="starting-gif" autoplay loop="true" src="./videos/aframe-help.mp4" preload="auto"></video>
+			<!-- <video id="starting-gif" autoplay loop="true" src="./videos/aframe-help.mp4" preload="auto"></video> -->
 
 			<audio id="kindergeluid" src="./sounds/kindergeluiden.mp3" preload="auto"></audio>
 			<audio id="achtergrondgeluid" src="./sounds/achtergrondmuziek.mp3" preload="auto"></audio>
@@ -89,17 +135,17 @@
 				<a-entity geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.012" material="color: black; shader: flat;"></a-entity>
 
 			</a-entity>
-			<a-plane class="js--start" position="0 -0.35 -0.755" width="1.5" height="0.4" color="black"></a-plane>
+			<!-- <a-plane class="js--start" position="0 -0.35 -0.755" width="1.5" height="0.4" color="black"></a-plane> -->
 			<a-text
 				class="cameratext js--start"
 				align="center"
 				value="Klik op het scherm om te beginnen."
-				visible="true"
+				visible="false"
 				color="white"
 				position="0 -0.35 -0.75" scale="0.25 0.25 0.25"></a-text>
 
-			<a-video class="js--start" src="#starting-gif" position="0 0.25 -0.75" scale="1.2 0.75 0.75" autoplay="true" loop="true"></a-video>
-			<a-plane class="js--start" position="0 0 -0.76" width="5" height="5"></a-plane>
+			<!-- <a-video class="js--start" src="#starting-gif" position="0 0.25 -0.75" scale="1.2 0.75 0.75" autoplay="true" loop="true"></a-video>
+			<a-plane class="js--start" position="0 0 -0.76" width="5" height="5"></a-plane> -->
 			<!-- <a-entity
 				data-interactive
 				gltf-model="#classroom_table"

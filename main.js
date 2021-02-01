@@ -23,19 +23,18 @@ window.onload = () => {
 	const hints = document.getElementById("hintsText--js");
 	const inhoud = ["Kijk naar de stapjes op de poster.", "4m = 400cm.", "Kijk naar het aantal 0 wat erbij komt\n per stapje."];
 
-	const startingElements = document.querySelectorAll(".js--start");
-
 	window.addEventListener("click", () => {
-		document.querySelector(".cameratext").setAttribute("value", "Om op een knop te klikken\nga je met de ring in het midden\nvan je scherm over een knop heen.\nBlijf hier dan even op staan.");
-		document.querySelector("a-video.js--start").setAttribute("src", "#starting-gif");
-		document.querySelector("a-video.js--start").play();
-		document.querySelector("a-video.js--start").components.material.material.map.image.play();
+		document.querySelector(".intro .text p").innerText = "Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even op staan.";
+		document.querySelector(".intro video").play();
+		// document.querySelector(".cameratext").setAttribute("value", "Om op een knop te klikken\nga je met de ring in het midden\nvan je scherm over een knop heen.\nBlijf hier dan even op staan.");
+		// document.querySelector("a-video.js--start").setAttribute("src", "#starting-gif");
+		// document.querySelector("a-video.js--start").play();
+		// document.querySelector("a-video.js--start").components.material.material.map.image.play();
 
 		speak("Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even op staan.", () => {
 			setTimeout(() => {
-				for (let i = 0; i < startingElements.length; i++) {
-					startingElements[i].setAttribute("visible", false);
-				}
+				document.querySelector(".intro video").pause();
+				document.querySelector(".intro").style.display = "none";
 
 				document.querySelector("[cursor]").setAttribute("visible", true);
 				let digiBoards = document.querySelectorAll("[src=\"#digibord-obj\"]");
