@@ -92,7 +92,15 @@ window.onload = () => {
 		if (ind >= inh.length) {
 			speak(inh[ind-1].replace(/\n/g, ""), () => {
 				walkSequence(() => {
-					loadLevel();
+
+					// Show level Explanations
+					showLevelExplanations(() => {
+						setTimeout(() => {
+							document.querySelector(".intro video").pause();
+							document.querySelector(".intro").style.display = "none";
+							loadLevel();
+						}, 2000);
+					});
 				});
 			});
 		} else {
@@ -108,6 +116,20 @@ window.onload = () => {
 		introKnop.remove();
 	};
 };
+
+function showLevelExplanations(cb=() => {}) {
+	document.querySelector(".intro video").src = "./videos/uitleg-level.mkv";
+	document.querySelector(".intro video").play();
+	document.querySelector(".intro").style.display = "block";
+
+	document.querySelector(".intro .text p").innerText = "Om een tafel op te pakken, ga je met de ring in het midden van je scherm over een tafel heen.";
+	speak("Om een tafel op te pakken, ga je met de ring in het midden van je scherm over een tafel heen.", () => {
+		document.querySelector(".intro .text p").innerText = "Om de tafel terug te zetten, ga je met de tafel over het rode vlak en blijf je hier even op staan.";
+		speak("Om de tafel terug te zetten, ga je met de tafel over het rode vlak en blijf je hier even op staan.", () => {
+			cb();
+		});
+	});
+}
 
 const levels = [
 	{
