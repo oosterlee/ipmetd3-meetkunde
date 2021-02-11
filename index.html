@@ -115,7 +115,7 @@
 
 
 		<!-- <a-camera class="js--camera" wasd-controls="acceleration:800" position="20 1.6 25"> -->
-		<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 25" camera-rotate="0 180 0">
+		<a-camera class="js--camera" wasd-controls="acceleration:800" position="-150 1.6 26" camera-rotate="0 180 0">
 			<a-entity
 				animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
 				animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 2000; from: 1 1 1; to: 0.1 0.1 0.1"
@@ -127,7 +127,7 @@
 
 				geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
 
-				raycaster="objects: [data-interactive],[data-placeable], .interact--js, [check-btn]"
+				raycaster="objects: [data-interactive],[data-placeable], .interact--js, [check-btn], .js--walking"
 
 				position="0 0 -0.5"
 
@@ -373,13 +373,30 @@
 
 		<!-- <a-light type="point" position="0 10 9" intensity="1"></a-light> -->
 
-<!-- CAMERA POSITIONS -->
-		<a-entity class="js--camerapos" position="-144 1.6 25" rotation="0 180 0"></a-entity>
+<!-- CAMERA POSITIONS PROPERPLY AUTOMATIC WALKING-->
+		<!-- <a-entity class="js--camerapos" position="-144 1.6 25" rotation="0 180 0"></a-entity>
 		<a-entity class="js--camerapos" position="-144 1.6 23" rotation="0 180 0"></a-entity>
 		<a-entity class="js--camerapos" position="-128 1.6 23" rotation="0 180 0"></a-entity>
 		<a-entity class="js--camerapos" position="-128 1.6 -20" rotation="0 180 0"></a-entity>
 		<a-entity class="js--camerapos" position="2 1.6 -20" rotation="0 180 0"></a-entity>
-		<a-entity class="js--camerapos" position="20 1.6 25" rotation="0 180 0"></a-entity>
+		<a-entity class="js--camerapos" position="20 1.6 25" rotation="0 180 0"></a-entity> -->
+
+	
+<!-- WALKING SPOTS -->
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="-144 -5 28"></a-cylinder>
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="-127.5 -5 22.5"></a-cylinder>
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="-127.5 -5 46"></a-cylinder>
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="-127.5 -5 7"></a-cylinder>
+
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="-127.5 -5 -21"></a-cylinder>
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="-93 -5 -21"></a-cylinder>
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="-58.5 -5 -21"></a-cylinder>
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="-24 -5 -21"></a-cylinder>
+
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="0 -5 -21"></a-cylinder>
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="24 -5 24"></a-cylinder>
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="0 -5 12"></a-cylinder>
+		<a-cylinder class="js--walking" color="red" radius="1.5" height="0.1" position="19 -5 -6"></a-cylinder>		
 
 <!-- SET OF TABLES -->
 		<a-entity class="js--tableholder">
