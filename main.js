@@ -16,6 +16,13 @@ const MEASUREMENTS_LINE_COLOR = "white";
 
 let camera;
 
+window.addEventListener("orientationchange", function(e) {
+	if ( window.orientation == 0 || window.orientation == 180) { // Portrait
+		document.querySelector(".cameratext").setAttribute("scale", "0.15 0.15 0.15");
+	} else { // Landscape
+		document.querySelector(".cameratext").setAttribute("scale", "0.25 0.25 0.25");
+	}
+}, false);
 
 window.onload = () => {
 	const walking = document.getElementsByClassName("js--walking");
@@ -37,16 +44,29 @@ window.onload = () => {
 	console.log("js connected");
 	const hintsKnop = document.getElementById("hintsKnop--js");
 	const hints = document.getElementById("hintsText--js");
-	const inhoud = ["Kijk naar de stapjes op de poster", " ", "item3"];
+	const inhoud = ["Kijk naar de stapjes op de poster.", "4m = 400cm.", "Kijk naar het aantal 0 wat erbij komt\n per stapje."];
+	
+	if (!AFRAME.utils.device.isMobile()) {
+		if ( window.orientation == 0 || window.orientation == 180) { // Portrait
+			document.querySelector(".cameratext").setAttribute("scale", "0.15 0.15 0.15");
+		} else { // Landscape
+			document.querySelector(".cameratext").setAttribute("scale", "0.25 0.25 0.25");
+		}
+	}
 
-	const startingElements = document.querySelectorAll(".js--start");
+	window.addEventListener("click", () => {
 
-	setTimeout(() => {
+		document.querySelector(".intro .text p").innerText = "Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even op staan.";
+		document.querySelector(".intro video").play();
+		// document.querySelector(".cameratext").setAttribute("value", "Om op een knop te klikken\nga je met de ring in het midden\nvan je scherm over een knop heen.\nBlijf hier dan even op staan.");
+		// document.querySelector("a-video.js--start").setAttribute("src", "#starting-gif");
+		// document.querySelector("a-video.js--start").play();
+		// document.querySelector("a-video.js--start").components.material.material.map.image.play();
+
 		speak("Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even op staan.", () => {
 			setTimeout(() => {
-				for (let i = 0; i < startingElements.length; i++) {
-					startingElements[i].setAttribute("visible", false);
-				}
+				document.querySelector(".intro video").pause();
+				document.querySelector(".intro").style.display = "none";
 
 				document.querySelector("[cursor]").setAttribute("visible", true);
 				let digiBoards = document.querySelectorAll("[src=\"#digibord-obj\"]");
@@ -54,10 +74,9 @@ window.onload = () => {
 					digiBoards[j].components.sound.playSound();
 				}
 
-				loadLevel();
-			}, 10000);
+			}, 1000);
 		});
-	}, 1500);
+	},{once:true});
 
 	let index = 0;
 
@@ -68,7 +87,10 @@ window.onload = () => {
 
 	hintsKnop.onclick = (event) => {
 		console.log(index);
-		hintsText(index), index++;	
+		if (index >= inhoud.length) {
+			index = 0;
+		}
+		hintsText(index++);	
 	}
 
 	const introKnop = document.getElementById("introKnop--js");
@@ -85,7 +107,17 @@ window.onload = () => {
 		introText(ind++);
 		if (ind >= inh.length) {
 			speak(inh[ind-1].replace(/\n/g, ""), () => {
-				walkSequence();
+				walkSequence(() => {
+
+					// Show level Explanations
+					showLevelExplanations(() => {
+						setTimeout(() => {
+							document.querySelector(".intro video").pause();
+							document.querySelector(".intro").style.display = "none";
+							loadLevel();
+						}, 2000);
+					});
+				});
 			});
 		} else {
 			speak(inh[ind-1].replace(/\n/g, ""), () => {
@@ -100,6 +132,20 @@ window.onload = () => {
 		introKnop.remove();
 	};
 };
+
+function showLevelExplanations(cb=() => {}) {
+	document.querySelector(".intro video").src = "./videos/uitleg-level.mkv";
+	document.querySelector(".intro video").play();
+	document.querySelector(".intro").style.display = "block";
+
+	document.querySelector(".intro .text p").innerText = "Om een tafel op te pakken, ga je met de ring in het midden van je scherm over een tafel heen.";
+	speak("Om een tafel op te pakken, ga je met de ring in het midden van je scherm over een tafel heen.", () => {
+		document.querySelector(".intro .text p").innerText = "Om de tafel terug te zetten, ga je met de tafel over het rode vlak en blijf je hier even op staan.";
+		speak("Om de tafel terug te zetten, ga je met de tafel over het rode vlak en blijf je hier even op staan.", () => {
+			cb();
+		});
+	});
+}
 
 // NOG NAGEKEKEN WORDEN
 const levels = [
@@ -252,6 +298,7 @@ function walkToElement(el, cb=() => {}) {
 	// att.value = "property: position; easing: linear; dur: "+dur+"; to: " + this.getAttribute('position').x + " 1.6 " + this.getAttribute('position').z;
 }
 
+
 // function walkSequence() {
 // 	const camerapositions = document.querySelectorAll(".js--camerapos");
 // 	if (camerapositions == null) return;
@@ -262,6 +309,7 @@ function walkToElement(el, cb=() => {}) {
 // 			console.log("Done!");
 // 			return;
 // 		}
+
 
 // 		walkToElement(camerapositions[index++], callback);
 // 	};
@@ -329,8 +377,9 @@ function loadLevel(levelId=currentLevel) {
 	console.log("Loading level: ", lvl.name);
 
 	setTimeout(() => {
-		const toSpeak = (lvl.name + ". " + lvl.description).replace(/\n/, "");
-		speak(lvl.name);
+		const toSpeak = (lvl.name + ". " + lvl.description).replace(/\n/g, "");
+		console.log(toSpeak);
+		speak(toSpeak);
 	}, 1000);
 
 	document.querySelector(".js--levelText").setAttribute("value", lvl.name + "\n" + lvl.description);
@@ -776,17 +825,19 @@ AFRAME.registerComponent("make-transparent", {
 AFRAME.registerComponent("check-btn", {
 	init: function() {
 		this.el.addEventListener("click", () => {
-			let correct = false;
+			let correct = true;
 			const level = getCurrentLevel();
 			const dropzones = document.querySelectorAll(".js--dropzoneholder > a-circle");
 
 			for (let i = 0; i < dropzones.length; i++) {
+				let dropzoneCorrect = true;
 				let dropzone = dropzones[i];
 				let tablechair = dropzone.querySelector("[data-pickupable]");
 
 				if (tablechair == null) {
 					// dropzone.setAttribute("material", "color", "red");
 					dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #FF0000; dur: 2000;");
+					correct = false;
 				} else {
 					const measurementsAttr = tablechair.getAttribute("measurements");
 					const measurements = measurementsAttr.measurements.split(" ");
@@ -796,9 +847,6 @@ AFRAME.registerComponent("check-btn", {
 					const dropMeasurements = dropMeasurementsAttr.measurements.split(" ");
 					const dropUnits = dropMeasurementsAttr.units.split(" ");
 
-					console.log(tablechair);
-					console.log(measurements, units);
-
 					for (let j = 0; j < 3; j++) {
 						let cal = calculateLength(measurements[j], units[j], dropUnits[j]);
 
@@ -806,13 +854,14 @@ AFRAME.registerComponent("check-btn", {
 							console.warn("NOT EQUAL TO", cal, dropMeasurements);
 							dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #FF0000; dur: 2000;");
 							correct = false;
+							dropzoneCorrect = false;
 							break;
 						}
 					}
+					if (dropzoneCorrect) {
+						dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #00FF00; dur: 2000;");
+					}
 
-					correct = true;
-
-					dropzone.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #00FF00; dur: 2000;");
 				}
 
 			}
