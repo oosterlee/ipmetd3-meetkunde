@@ -18,6 +18,22 @@ let camera;
 
 
 window.onload = () => {
+	const walking = document.getElementsByClassName("js--walking");
+	console.log(walking);
+
+	// WALKING
+	for(let i = 0; i < walking.length; i++){
+		walking[i].addEventListener("click", function(evt){
+
+			console.log("walking");
+			
+			let att = document.createAttribute("animation");
+			att.value = "property: position; easing: linear; dur: 2000; to: " + 
+			this.getAttribute("position").x + " 1.6 " + this.getAttribute("position").z;
+			camera.setAttribute("animation", att.value);
+		});
+	}
+
 	console.log("js connected");
 	const hintsKnop = document.getElementById("hintsKnop--js");
 	const hints = document.getElementById("hintsText--js");
@@ -85,10 +101,11 @@ window.onload = () => {
 	};
 };
 
+// NOG NAGEKEKEN WORDEN
 const levels = [
 	{
 		name: "Level 1",
-		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nop de tafel te klikken.",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
 		tables: ["measurements: 3 3 3; units: cm cm cm",
 				"measurements: 300 300 300; units: cm cm cm",
 				"measurements: 30 30 30; units: cm cm cm"],
@@ -101,7 +118,7 @@ const levels = [
 	},
 	{
 		name: "Level 2",
-		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nop de tafel te klikken.",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
 		tables: ["measurements: 30 30 30; units: cm cm cm",
 				"measurements: 300 300 300; units: cm cm cm",
 				"measurements: 3000 3000 3000; units: cm cm cm"],
@@ -112,6 +129,52 @@ const levels = [
 		},
 		points: 15,
 	},
+	{
+		name: "Level 3",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
+		tables: ["measurements: 30 30 30; units: cm cm cm",
+				"measurements: 300 300 300; units: cm cm cm",
+				"measurements: 3000 3000 3000; units: cm cm cm",
+				"measurements: 300 300 300; units: cm cm cm",],
+				
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 0.3 0.3 0.3; units: m m m"],
+			chairs: []
+		},
+		points: 15,
+	},
+	{
+		name: "Level 4",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
+		tables: ["measurements: 30 30 30; units: mm mm mm",
+				"measurements: 300 300 300; units: cm cm cm",
+				"measurements: 3000 3000 3000; units: dm dm dm",
+				"measurements: 300 300 300; units: cm cm cm",],
+				
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 0.3 0.3 0.3; units: m m m"],
+			chairs: []
+		},
+		points: 15,
+	},
+	{
+		name: "Level 5",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
+		tables: ["measurements: 30 30 30; units: mm mm mm",
+				"measurements: 300 300 300; units: cm cm cm",
+				"measurements: 3000 3000 3000; units: dm dm dm",
+				"measurements: 300 300 300; units: cm cm cm",],
+				
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 0.3 0.3 0.3; units: m m m",
+					"measurements: 0.3 0.3 0.3; units: cm cm cm"],
+			chairs: []
+		},
+		points: 15,
+	}
 ];
 
 let currentLevel = 0;
@@ -189,21 +252,21 @@ function walkToElement(el, cb=() => {}) {
 	// att.value = "property: position; easing: linear; dur: "+dur+"; to: " + this.getAttribute('position').x + " 1.6 " + this.getAttribute('position').z;
 }
 
-function walkSequence() {
-	const camerapositions = document.querySelectorAll(".js--camerapos");
-	if (camerapositions == null) return;
-	let index = 0;
-	const callback = () => {
-		console.log("[walkSequence]", index, camerapositions.length);
-		if (index >= camerapositions.length) {
-			console.log("Done!");
-			return;
-		}
+// function walkSequence() {
+// 	const camerapositions = document.querySelectorAll(".js--camerapos");
+// 	if (camerapositions == null) return;
+// 	let index = 0;
+// 	const callback = () => {
+// 		console.log("[walkSequence]", index, camerapositions.length);
+// 		if (index >= camerapositions.length) {
+// 			console.log("Done!");
+// 			return;
+// 		}
 
-		walkToElement(camerapositions[index++], callback);
-	};
-	walkToElement(camerapositions[index++], callback);
-}
+// 		walkToElement(camerapositions[index++], callback);
+// 	};
+// 	walkToElement(camerapositions[index++], callback);
+// }
 
 
 
