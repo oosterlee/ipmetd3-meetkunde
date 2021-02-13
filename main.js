@@ -436,27 +436,56 @@ function createDropzoneElement(measurementsAttr, position=DROPZONE_START_POS, ty
 }
 
 
+const blobToBase64 = blob => {
+  const reader = new FileReader();
+  reader.readAsDataURL(blob);
+  return new Promise(resolve => {
+    reader.onloadend = () => {
+      resolve(reader.result);
+    };
+  });
+};
+
 function speak(text, done=function() {}) {
-	const voices = speechSynthesis.getVoices();
-	utterance = new SpeechSynthesisUtterance(text);
+	// const voices = speechSynthesis.getVoices();
+	// utterance = new SpeechSynthesisUtterance(text);
 
-	for (let i = 0; i < voices.length; i++) {
-		if (voices[i].lang == "nl-Nl") {
-			console.log("Found!");
-			utterance.voice = voices[i];
-			break;
-		}
-	}
+	// for (let i = 0; i < voices.length; i++) {
+	// 	if (voices[i].lang == "nl-Nl") {
+	// 		console.log("Found!");
+	// 		utterance.voice = voices[i];
+	// 		break;
+	// 	}
+	// }
 
-    utterance.voiceURI = 'native';
-    utterance.volume = 1; // 0 to 1
-    utterance.rate = 0.9; // 0.1 to 10
-    utterance.pitch = 0.95; //0 to 2
-    utterance.text = text;
-    utterance.lang = 'nl-Nl';
-	speechSynthesis.speak(utterance);
+ //    utterance.voiceURI = 'native';
+ //    utterance.volume = 1; // 0 to 1
+ //    utterance.rate = 0.9; // 0.1 to 10
+ //    utterance.pitch = 0.95; //0 to 2
+ //    utterance.text = text;
+ //    utterance.lang = 'nl-Nl';
+	// speechSynthesis.speak(utterance);
 
-	utterance.onend = done;
+	// utterance.onend = done;
+
+
+	// responsiveVoice.speak(text, "Dutch Female");
+
+	let audio = document.createElement("audio");
+	let url = "https://rcors-school.herokuapp.com/"+"https://code.responsivevoice.org/getvoice.php?t="+text+"&tl=nl-NL&key=Xa4KMdo7&gender=female&rate=0.425&pitch=0.5";
+	
+	fetch(url).then(r => r.blob()).then(res => {
+		console.log(res);
+		blobToBase64(res).then(aud => {
+			console.log("[Playing] ", text);
+			audio.src = aud;
+			audio.play();
+		});
+
+	});
+
+	// audio.preload = 'auto';
+	// audio.src = "" + url;
 }
 
 function aFrameCloneFully(node) {
