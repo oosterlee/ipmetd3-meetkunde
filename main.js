@@ -31,13 +31,14 @@ window.onload = () => {
 	// WALKING
 	for(let i = 0; i < walking.length; i++){
 		walking[i].addEventListener("click", function(evt){
+			walkToElement(evt.target);
 
-			console.log("walking");
+			// console.log("walking");
 			
-			let att = document.createAttribute("animation");
-			att.value = "property: position; easing: linear; dur: 2000; to: " + 
-			this.getAttribute("position").x + " 1.6 " + this.getAttribute("position").z;
-			camera.setAttribute("animation", att.value);
+			// let att = document.createAttribute("animation");
+			// att.value = "property: position; easing: linear; dur: 2000; to: " + 
+			// this.getAttribute("position").x + " 1.6 " + this.getAttribute("position").z;
+			// camera.setAttribute("animation", att.value);
 		});
 	}
 
@@ -292,7 +293,7 @@ function getDistance(obj1, obj2) {
 function walkToElement(el, cb=() => {}) {
 	const distance = getDistance(camera, el);
 	let elPos = el.getAttribute("position");
-	elPos = elPos.x + " " + elPos.y + " " + elPos.z;
+	elPos = elPos.x + " " + "1.6" + " " + elPos.z;
 	const dur = 125 * distance;
 	console.log(distance, dur);
 	camera.setAttribute("animation", "property: position; easing: linear; to: " + elPos + "; dur: " + dur);
