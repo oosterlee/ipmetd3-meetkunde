@@ -25,6 +25,22 @@ window.addEventListener("orientationchange", function(e) {
 }, false);
 
 window.onload = () => {
+	const walking = document.getElementsByClassName("js--walking");
+	console.log(walking);
+
+	// WALKING
+	for(let i = 0; i < walking.length; i++){
+		walking[i].addEventListener("click", function(evt){
+
+			console.log("walking");
+			
+			let att = document.createAttribute("animation");
+			att.value = "property: position; easing: linear; dur: 2000; to: " + 
+			this.getAttribute("position").x + " 1.6 " + this.getAttribute("position").z;
+			camera.setAttribute("animation", att.value);
+		});
+	}
+
 	console.log("js connected");
 	const hintsKnop = document.getElementById("hintsKnop--js");
 	const hints = document.getElementById("hintsText--js");
@@ -90,8 +106,10 @@ window.onload = () => {
 		console.log(ind);
 		introText(ind++);
 		if (ind >= inh.length) {
+			console.log("if");
 			speak(inh[ind-1].replace(/\n/g, ""), () => {
-				walkSequence(() => {
+				console.log("speak");
+				// walkSequence(() => {
 
 					// Show level Explanations
 					showLevelExplanations(() => {
@@ -101,7 +119,7 @@ window.onload = () => {
 							loadLevel();
 						}, 2000);
 					});
-				});
+				// });
 			});
 		} else {
 			speak(inh[ind-1].replace(/\n/g, ""), () => {
@@ -117,6 +135,7 @@ window.onload = () => {
 	};
 };
 
+// UITLEG TAFELS OPTILLEN
 function showLevelExplanations(cb=() => {}) {
 	document.querySelector(".intro video").src = "./videos/uitleg-level.mkv";
 	document.querySelector(".intro video").play();
@@ -131,10 +150,11 @@ function showLevelExplanations(cb=() => {}) {
 	});
 }
 
+// NOG NAGEKEKEN WORDEN
 const levels = [
 	{
 		name: "Level 1",
-		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nop de tafel te klikken.",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
 		tables: ["measurements: 3 3 3; units: cm cm cm",
 				"measurements: 300 300 300; units: cm cm cm",
 				"measurements: 30 30 30; units: cm cm cm"],
@@ -147,17 +167,63 @@ const levels = [
 	},
 	{
 		name: "Level 2",
-		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nop de tafel te klikken.",
-		tables: ["measurements: 30 30 30; units: cm cm cm",
-				"measurements: 300 300 300; units: cm cm cm",
-				"measurements: 3000 3000 3000; units: cm cm cm"],
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
+		tables: ["measurements: 50 50 50; units: mm mm mm",
+				"measurements: 500 500 500; units: mm mm mm",
+				"measurements: 5000 5000 5000; units: mm mm mm"],
 		chairs: [],
 		dropzones: {
-			tables: ["measurements: 0.3 0.3 0.3; units: m m m"],
+			tables: ["measurements: 0.5 0.5 0.5; units: m m m"],
 			chairs: []
 		},
 		points: 15,
 	},
+	{
+		name: "Level 3",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
+		tables: ["measurements: 60 60 60; units: dm dm dm",
+				"measurements: 600 600 600; units: dm dm dm",
+				"measurements: 6000 6000 6000; units: dm dm dm",
+				"measurements: 6 6 6; units: dm dm dm",],
+				
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 6 6 6; units: m m m"],
+			chairs: []
+		},
+		points: 15,
+	},
+	{
+		name: "Level 4",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
+		tables: ["measurements: 400 400 400; units: cm cm cm",
+				"measurements: 40 40 40; units: mm mm mm",
+				"measurements: 4 4 4; units: km km km",
+				"measurements: 4000 4000 4000; units: dm dm dm",],
+				
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 4000 4000 4000; units: m m m"],
+			chairs: []
+		},
+		points: 15,
+	},
+	{
+		name: "Level 5",
+		description: "Zet de tafel op de goede positie.\nPak de tafel op door \nnaar de tafel te kijken.",
+		tables: ["measurements: 80 80 80; units: mm mm mm",
+				"measurements: 80 80 80; units: m m m",
+				"measurements: 80 80 80; units: dm dm dm",
+				"measurements: 80 80 80; units: cm cm cm",],
+				
+		chairs: [],
+		dropzones: {
+			tables: ["measurements: 0.8 0.8 0.8; units: m m m",
+					"measurements: 8 8 8; units: cm cm cm"],
+			chairs: []
+		},
+		points: 15,
+	}
 ];
 
 let currentLevel = 0;
@@ -235,22 +301,23 @@ function walkToElement(el, cb=() => {}) {
 	// att.value = "property: position; easing: linear; dur: "+dur+"; to: " + this.getAttribute('position').x + " 1.6 " + this.getAttribute('position').z;
 }
 
-function walkSequence(cb=()=>{}) {
-	const camerapositions = document.querySelectorAll(".js--camerapos");
-	if (camerapositions == null) return;
-	let index = 0;
-	const callback = () => {
-		console.log("[walkSequence]", index, camerapositions.length);
-		if (index >= camerapositions.length) {
-			console.log("Done!");
-			cb();
-			return;
-		}
 
-		walkToElement(camerapositions[index++], callback);
-	};
-	walkToElement(camerapositions[index++], callback);
-}
+// function walkSequence() {
+// 	const camerapositions = document.querySelectorAll(".js--camerapos");
+// 	if (camerapositions == null) return;
+// 	let index = 0;
+// 	const callback = () => {
+// 		console.log("[walkSequence]", index, camerapositions.length);
+// 		if (index >= camerapositions.length) {
+// 			console.log("Done!");
+// 			return;
+// 		}
+
+
+// 		walkToElement(camerapositions[index++], callback);
+// 	};
+// 	walkToElement(camerapositions[index++], callback);
+// }
 
 
 
@@ -833,18 +900,34 @@ AFRAME.registerComponent("check-btn", {
 
 			let cameratext = document.querySelector(".cameratext");
 			if (correct) {
+				if((currentLevel + 1) < levels.length){
+					console.log(currentLevel);
+					console.log(levels.length);
+					console.log("If statement");
+					setTimeout(() => {
+						speak("Alles is goed beantwoord! Je wordt doorgestuurd naar het volgende level.", () => {
+							cameratext.setAttribute("visible", false);	
+							loadLevel(currentLevel+1);
+						});
 
-				setTimeout(() => {
-					speak("Alles is goed beantwoord! Je wordt doorgestuurd naar het volgende level.", () => {
-						cameratext.setAttribute("visible", false);
-						loadLevel(currentLevel+1);
-					});
+						cameratext.setAttribute("visible", true);
+						cameratext.setAttribute("value", "Alles is goed beantwoord!\nJe wordt doorgestuurd naar het volgende level.");
+					}, 2000);
+				}
+				else{	
+					console.log("Else statement");
+					setTimeout(() => {
+						speak("Alles is goed beantwoord! Gefeliciteerd dit waren alle levels. Wat heb je het goed gedaan!", () => {
+							cameratext.setAttribute("visible", false);	
+						});
 
-					cameratext.setAttribute("visible", true);
-					cameratext.setAttribute("value", "Alles is goed beantwoord!\nJe wordt doorgestuurd naar het volgende level.");
-					console.log("EVERY TABLE IS IS THE CORRECT SPOT!");
-				}, 2000);
-			} else {
+						cameratext.setAttribute("visible", true);
+						cameratext.setAttribute("value", "Alles is goed beantwoord! Gefeliciteerd dit waren alle levels. Wat heb je het goed gedaan!.");
+					}, 2000);		
+				}
+			} 
+			
+			else {
 				setTimeout(() => {
 					speak("Helaas, je hebt nog ergens een foutje. Je kunt het!", () => {
 						cameratext.setAttribute("visible", false);
@@ -857,3 +940,16 @@ AFRAME.registerComponent("check-btn", {
 		});
 	}
 });
+
+
+// if(levels.length != 3){
+// 	console.log("door");
+
+// 	speak("Alles is goed beantwoord! Je wordt doorgestuurd naar het volgende level.", () => {
+// 		cameratext.setAttribute("visible", false);	
+// 		loadLevel(currentLevel+1);
+// 	});
+// }
+// else{
+// 	console.log("geen levels einde");
+// }
