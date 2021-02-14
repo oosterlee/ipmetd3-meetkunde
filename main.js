@@ -79,6 +79,15 @@ window.onload = () => {
 		});
 	},{once:true});
 
+	document.querySelector("#js--beginLevels").addEventListener("click", function() {
+		this.remove();
+		showLevelExplanations(() => {
+			document.querySelector(".intro video").pause();
+			document.querySelector(".intro").style.display = "none";
+			loadLevel();
+		});
+	});
+
 	let index = 0;
 
 	function hintsText(getal) {
@@ -587,6 +596,7 @@ function addPlaceEvent(element, destroy=0) {
 
 		placeEl.setAttribute("measurements", "show", false);
 		placeEl.setAttribute("material", "color", "aqua");
+		placeEl.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #00FFFF; dur: 2000;");
 
 		if (placeEl.querySelector("[data-pickupable]") != null) return console.error("Cannot place there!"); // TODO: add visual feedback for the user
 		const placePos = placeEl.getAttribute("position");
@@ -638,6 +648,7 @@ function addPickupEvent(element) {
 		if (parent.getAttribute("data-placeable") == null ? false : true) {
 			e.target.parentNode.setAttribute("measurements", "show", true);
 			e.target.parentNode.setAttribute("material", "color", "aqua");
+			e.target.parentNode.setAttribute("animation", "property: material.color; type: color; from: #00FFFF; to: #00FFFF; dur: 2000;");
 		}
 
 		// let measurementsAttr = clonedNode.getAttribute("measurements");
@@ -928,9 +939,7 @@ AFRAME.registerComponent("check-btn", {
 						cameratext.setAttribute("value", "Alles is goed beantwoord! Gefeliciteerd dit waren alle levels. Wat heb je het goed gedaan!.");
 					}, 2000);		
 				}
-			} 
-			
-			else {
+			} else {
 				setTimeout(() => {
 					speak("Helaas, je hebt nog ergens een foutje. Je kunt het!", () => {
 						cameratext.setAttribute("visible", false);
