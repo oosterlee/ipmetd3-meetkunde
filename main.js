@@ -547,6 +547,8 @@ function speak(text, done=function() {}) {
 			console.log("[Playing] ", text);
 			audio.src = aud;
 			audio.play();
+
+			audio.onended = done;
 		});
 
 	});
