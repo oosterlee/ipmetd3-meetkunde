@@ -122,13 +122,13 @@ window.onload = () => {
 				// walkSequence(() => {
 
 					// Show level Explanations
-					showLevelExplanations(() => {
-						setTimeout(() => {
-							document.querySelector(".intro video").pause();
-							document.querySelector(".intro").style.display = "none";
-							loadLevel();
-						}, 2000);
-					});
+					// showLevelExplanations(() => {
+					// 	setTimeout(() => {
+					// 		document.querySelector(".intro video").pause();
+					// 		document.querySelector(".intro").style.display = "none";
+					// 		loadLevel();
+					// 	}, 2000);
+					// });
 				// });
 			});
 		} else {
