@@ -57,14 +57,14 @@ window.onload = () => {
 
 	window.addEventListener("click", () => {
 
-		document.querySelector(".intro .text p").innerText = "Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even op staan.";
+		document.querySelector(".intro .text p").innerText = "Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even naar kijken.";
 		document.querySelector(".intro video").play();
 		// document.querySelector(".cameratext").setAttribute("value", "Om op een knop te klikken\nga je met de ring in het midden\nvan je scherm over een knop heen.\nBlijf hier dan even op staan.");
 		// document.querySelector("a-video.js--start").setAttribute("src", "#starting-gif");
 		// document.querySelector("a-video.js--start").play();
 		// document.querySelector("a-video.js--start").components.material.material.map.image.play();
 
-		speak("Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even op staan.", () => {
+		speak("Om op een knop te klikken ga je met de ring in het midden van je scherm over een knop heen. Blijf hier dan even naar kijken.", () => {
 			setTimeout(() => {
 				document.querySelector(".intro video").pause();
 				document.querySelector(".intro").style.display = "none";
@@ -105,7 +105,7 @@ window.onload = () => {
 
 	const introKnop = document.getElementById("introKnop--js");
 	const intro = document.getElementById("introText--js");
-	const inh = ["Welkom bij onze \n rekenles. \n\n We geven je nu wat \n uitleg.", "Jij gaat een klaslokaal inrichten.", "Succes met de opdrachten, \n je wordt nu naar het lokaal \n gebracht"];
+	const inh = ["Welkom bij de \n rekenles. \n\n We geven je nu wat \n uitleg.", "Jij gaat een klaslokaal inrichten.", "Dit doe je door de goede tafel \nneer te zetten bij de goede maat.", "Om te lopen kijk je naar \nde rode rondjes op de grond.", "Succes met de opdrachten, \nje kan nu naar het \nandere lokaal lopen."];
 	let ind = 0;
 
 	function introText(getal) {
@@ -153,8 +153,8 @@ function showLevelExplanations(cb=() => {}) {
 
 	document.querySelector(".intro .text p").innerText = "Om een tafel op te pakken, ga je met de ring in het midden van je scherm over een tafel heen.";
 	speak("Om een tafel op te pakken, ga je met de ring in het midden van je scherm over een tafel heen.", () => {
-		document.querySelector(".intro .text p").innerText = "Om de tafel terug te zetten, ga je met de tafel over het rode vlak en blijf je hier even op staan.";
-		speak("Om de tafel terug te zetten, ga je met de tafel over het rode vlak en blijf je hier even op staan.", () => {
+		document.querySelector(".intro .text p").innerText = "Om de tafel terug te zetten, ga je met de tafel over het rode vlak en blijf je hier even naar kijken.";
+		speak("Om de tafel terug te zetten, ga je met de tafel over het rode vlak en blijf je hier even naar kijken.", () => {
 			cb();
 		});
 	});

@@ -54,7 +54,7 @@
 	<section class="intro">
 		<video src="./videos/aframe-help.mp4" loop="true"></video>
 		<section class="text">
-			<p>Klik op het scherm om te beginnen</p>
+			<p>Klik op het scherm om te beginnen.</p>
 		</section>
 	</section>
 	<a-scene background="color: #ECECEC" loading-screen="dotsColor: red; backgroundColor: black">
@@ -98,7 +98,7 @@
 				<a-text text="value: Hints" position="0 0 0.6" color="white" scale="3.5 3.5 3.5" align="center"></a-text>
 			</a-box>
 			<a-obj-model src="#digibord-obj" mtl=#digibord-mtl position="-1 -1 -31.4" scale="1.9 1.9 1.9" sound="src: #achtergrondgeluid; autoplay: false; volume: 0.3 loop: true; refDistance: 5">
-				<a-text class="js--levelText" value="Hier komt wat te staan van de opdracht" position="-0.1 4.5 0.1" color="black" scale="4 4 4" width="2.4" align="center"></a-text>
+				<a-text class="js--levelText" value="Druk op de start knop voor de opdracht." position="-0.1 4.5 0.1" color="black" scale="4 4 4" width="2.4" align="center"></a-text>
 				<a-text id="hintsText--js"  text="value: Druk op de groene knop voor hints" position="-0.1 2 0.1" color="black" scale="5 5 5" width="2.4" align="center"> </a-text>
 			</a-obj-model>
 		</a-entity>
@@ -184,15 +184,6 @@
 			scale="0.0175 0.0175 0.0175"
 			rotation="0 180 0"
 			make-transparent
-		>
-		</a-entity>
-
-		<a-entity
-			data-interactive
-			gltf-model="#classroom_chair"
-			pivotpoint="0 -100 0"
-			position="-30 -1.65 0"
-			scale="0.0175 0.0175 0.0175"
 		>
 		</a-entity>
 
