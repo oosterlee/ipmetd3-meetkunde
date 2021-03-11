@@ -228,7 +228,7 @@ const levels = [
 				
 		chairs: [],
 		dropzones: {
-			tables: ["measurements: 0.8 0.8 0.8; units: m m m",
+			tables: ["measurements: 8 8 8; units: m m m",
 					"measurements: 8 8 8; units: cm cm cm"],
 			chairs: []
 		},
@@ -911,8 +911,19 @@ AFRAME.registerComponent("check-btn", {
 				}
 
 			}
-
 			let cameratext = document.querySelector(".cameratext");
+
+			if (dropzones.length <= 0) {
+				speak("Er is nog geen level gestart. Kijk naast het digibord.", () => {
+					cameratext.setAttribute("visible", false);	
+				});
+
+				cameratext.setAttribute("visible", true);
+				cameratext.setAttribute("value", "Er is nog geen level gestart.\nKijk naast het digibord.");
+				return;
+			}
+
+
 			if (correct) {
 				if((currentLevel + 1) < levels.length){
 					console.log(currentLevel);
@@ -932,11 +943,23 @@ AFRAME.registerComponent("check-btn", {
 					console.log("Else statement");
 					setTimeout(() => {
 						speak("Alles is goed beantwoord! Gefeliciteerd dit waren alle levels. Wat heb je het goed gedaan!", () => {
-							cameratext.setAttribute("visible", false);	
+							cameratext.setAttribute("visible", false);
+
+							setTimeout(() => {
+								speak("Dit was het einde van het spel, je kunt nu je bril afzetten.", () => {
+									// cameratext.setAttribute("visible", false);	
+								});
+
+								cameratext.setAttribute("visible", true);
+								cameratext.setAttribute("value", "Dit was het einde van het spel,\nje kunt nu je bril afzetten.");
+							}, 1000);
 						});
 
 						cameratext.setAttribute("visible", true);
 						cameratext.setAttribute("value", "Alles is goed beantwoord! Gefeliciteerd dit waren alle levels. Wat heb je het goed gedaan!.");
+						
+						document.querySelector('.confetti').setAttribute("animation-mixer", "clip: *;");
+
 					}, 2000);		
 				}
 			} else {
