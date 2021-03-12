@@ -7,7 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 	<script src="https://code.responsivevoice.org/responsivevoice.js?key=Xa4KMdo7"></script>
-<!-- 	<script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras/dist/aframe-extras.min.js"></script>
+	<!-- <script src="https://aframe.io/aframe-inspector/dist/aframe-inspector.js"></script> -->
 	<script src="./main.js"></script>
 	<style>
 		.intro {
@@ -76,6 +77,8 @@
 			<a-asset-item id="classroom" src="./objects/classroom.glb"></a-asset-item>
 			<a-asset-item id="classroom_trash_can" src="./objects/classroom_trash_can.glb"></a-asset-item>
 			<a-asset-item id="classroom_bookshelf" src="./objects/classroom_bookshelf.glb"></a-asset-item>
+
+			<a-asset-item id="confetti" src="./objects/confetti.glb"></a-asset-item>
 			<!-- <a-asset-item id="startroom_door" src="./objects/startroom_door.glb"></a-asset-item> -->
 
 			<!-- <video id="starting-gif" autoplay loop="true" src="./videos/aframe-help.mp4" preload="auto"></video> -->
@@ -169,6 +172,13 @@
 					
 		>
 		</a-entity> -->
+
+		<a-entity
+			gltf-model="#confetti"
+			scale="0.05 0.05 0.05"
+			position="0 19.15 0"
+			class="confetti"
+		></a-entity>
 
 		<a-entity
             gltf-model="#classroom"
